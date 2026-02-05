@@ -1,190 +1,444 @@
-# Skills for Tech Company Proposals
+# AI Agent SKILL 制作研究项目
 
-科技公司方案编制专用 Skills 集合，提升 AI 辅助方案编制效率。
+> 研究 AI Agent 的 SKILL 格式、设计模式和最佳实践，通过实际案例探索如何编写高质量的 SKILL 文档。
 
-## 🎯 包含的 Skills
+## 🎯 项目目的
 
-### 1. converting-markdown
-将 Markdown 文档转换为美观的 HTML，支持多主题、响应式设计、智能 SVG 图形转换。
+本项目是一个**关于 SKILL 制作的研究项目**，旨在探索和总结 AI Agent SKILL 的编写方法、设计模式和最佳实践。通过三个完整的实际案例，展示如何将复杂的业务流程和专业知识转化为可被 AI Agent 理解和执行的 SKILL 文档。
 
-- **用途**：方案文档转 HTML（供领导查阅）
-- **特点**：
-  - 多主题支持（purple/blue/green/minimal）
-  - ASCII 图智能转换 SVG
-  - 响应式设计（PC/平板/手机）
-  - 打印优化
-- **文档**：[converting-markdown/SKILL.md](converting-markdown/SKILL.md)
-- **技术指南**：
-  - [输出规范](converting-markdown/guides/output-specs.md)
-  - [ASCII图转换技巧](converting-markdown/guides/ascii-to-svg.md)
+### 可以学到什么
 
-### 2. presales-proposal
-编制售前方案、汇报方案、功能建议方案。
+- ✅ **SKILL 格式规范**：如何编写符合规范的 SKILL.md 文档
+- ✅ **职责分离设计**：如何划分"脚本机械工作"和"AI 智能工作"
+- ✅ **交互流程设计**：如何设计 AI Agent 与用户的交互流程
+- ✅ **占位符管理**：如何处理用户配置和动态内容
+- ✅ **按需加载技术**：如何组织 SKILL.md 和 guides，提高 AI 效率
+- ✅ **跨平台兼容**：如何编写兼容 Claude、ChatGPT、Gemini 等平台的 SKILL
 
-- **用途**：售前产品经理编制客户方案
-- **特点**：
-  - 图文并茂（ASCII图、表格、流程图）
-  - 四大核心板块（背景/功能/预算/周期）
-  - 严格遵循"回答4个核心问题"
-  - ASCII图类型标注规范（100%标注率）
-- **文档**：[presales-proposal/SKILL.md](presales-proposal/SKILL.md)
-- **适用场景**：客户询问功能、给领导汇报、编制方案文档
+---
 
-### 3. internal-project-plan
-编制内部项目规划书，规划多年度项目路线图和报价。
+## 📚 研究案例
 
-- **用途**：规划客户多年度项目、报价参考
-- **特点**：
-  - 项目清单（分年度表格）
-  - 优先级建议
-  - 实施路径图（ASCII图）
-  - 运维服务报价方案（分项阶梯费率 + 套餐组合）
-- **文档**：[internal-project-plan/SKILL.md](internal-project-plan/SKILL.md)
-- **适用场景**：多年度项目规划、统一维护费用方案
+### 案例 1：converting-markdown（复杂交互流程）
 
-## 🚀 快速开始
+**研究点**：如何设计多步骤交互流程和脚本协作
 
-### 方法1：符号链接（推荐）
+- **SKILL.md**：定义完整的 AI 交互流程（选择文件 → 选择主题 → ASCII 图处理方式 → 验证）
+- **guides/**：按需加载的技术细节（输出规范、转换技巧）
+- **scripts/**：Python 脚本负责机械工作（转换、提取、替换）
+- **职责分离**：
+  - 脚本：文件操作、占位符提取、内容替换
+  - AI Agent：理解 ASCII 图结构、生成 SVG/HTML 代码
 
-将本仓库的 skills 链接到你的项目：
-
-```bash
-# 1. 克隆本仓库
-git clone https://github.com/yourname/skills-techco-proposals.git ~/common/www/ai_coding/skills-techco-proposals
-
-# 2. 在你的项目中创建符号链接
-cd your-project/.claude/skills
-ln -s ~/common/www/ai_coding/skills-techco-proposals/converting-markdown
-ln -s ~/common/www/ai_coding/skills-techco-proposals/presales-proposal
-ln -s ~/common/www/ai_coding/skills-techco-proposals/internal-project-plan
+**关键设计模式**：
+```
+用户 → AI Agent（决策） → 脚本（执行） → AI Agent（生成代码） → 脚本（替换）
 ```
 
-### 方法2：Git Submodule
+### 案例 2：presales-proposal（纯文档 SKILL）
 
-```bash
-cd your-project
-git submodule add https://github.com/yourname/skills-techco-proposals.git .claude/skills/techco-proposals
+**研究点**：如何将专业知识转化为 SKILL 文档
+
+- **SKILL.md**：完整的售前方案编制规范（核心原则、文档结构、写作规范、检查清单）
+- **CONFIG.yaml**：用户配置管理（公司名称、角色定位）
+- **占位符系统**：使用 `{{COMPANY_NAME}}` 占位符，AI Agent 运行时替换
+
+**关键设计模式**：
+```
+用户配置 + SKILL 规范 → AI Agent 生成文档 → 输出符合规范的方案
 ```
 
-## 📖 使用示例
+### 案例 3：internal-project-plan（复杂计算 SKILL）
 
-```bash
-# 转换 Markdown 为 HTML（purple主题）
-python3 ~/common/www/ai_coding/skills-techco-proposals/converting-markdown/scripts/convert.py \
-  售前/会员积分商城建设方案.md --theme purple
+**研究点**：如何让 AI Agent 执行复杂的计算和逻辑判断
 
-# 编制售前方案
-skill presales-proposal "为XX协会编制会员系统建设方案"
+- **SKILL.md**：详细的项目规划规范（8 个章节、阶梯费率、套餐组合）
+- **计算逻辑**：AI Agent 根据项目金额自动计算各档套餐维护费
+- **决策支持**：优先级建议、实施路径规划
 
-# 编制项目规划书
-skill internal-project-plan "XX协会2026年度项目规划"
+**关键设计模式**：
+```
+项目数据 → AI Agent（计算 + 决策） → 生成规划书 + 报价方案
 ```
 
-## 🛠️ 技术依赖
+---
 
-### converting-markdown
-- Python 3.6+
-- PyYAML
-- markdown
+## 🏗️ SKILL 设计模式
 
-```bash
-pip3 install pyyaml markdown
+### 模式 1：职责分离（脚本 + AI 协作）
+
+适用于需要调用外部工具或脚本的场景。
+
+**架构**：
+```
+┌─────────────┐    决策     ┌─────────────┐    执行     ┌──────────────┐
+│  AI Agent   │ ────────→ │   Python    │ ────────→ │  文件操作    │
+│             │ ←────────  │   脚本      │ ←────────  │   结果输出   │
+└─────────────┘    返回     └─────────────┘    状态     └──────────────┘
 ```
 
-### presales-proposal / internal-project-plan
-- 无依赖（纯 SKILL 文档）
+**实现示例**：converting-markdown
+- AI Agent：询问用户选择主题、处理 ASCII 图、生成 SVG 代码
+- 脚本：转换 Markdown、提取占位符、替换 SVG
+
+### 模式 2：按需加载（SKILL.md + guides）
+
+适用于复杂业务逻辑，需要分层组织的场景。
+
+**架构**：
+```
+SKILL.md（主流程）
+├── 快速开始
+├── 交互流程
+└── 📖 详细技术指南（guides/）
+    ├── guide-1.md（AI 按需读取）
+    ├── guide-2.md（AI 按需读取）
+    └── guide-3.md（AI 按需读取）
+```
+
+**实现示例**：converting-markdown
+- SKILL.md：定义完整交互流程
+- guides/output-specs.md：SVG/HTML 输出格式规范
+- guides/ascii-to-svg.md：ASCII 识别和转换技巧
+
+**优点**：
+- ✅ 减少 AI 的上下文负担
+- ✅ 提高 SKILL.md 的可读性
+- ✅ 技术细节可以独立更新
+
+### 模式 3：占位符系统（动态内容替换）
+
+适用于需要用户个性化配置的场景。
+
+**架构**：
+```
+SKILL.md（定义占位符）
+        ↓
+.claude/user-config.yaml（用户配置）
+        ↓
+AI Agent（读取配置 → 替换占位符 → 生成文档）
+```
+
+**实现示例**：presales-proposal、internal-project-plan
+- SKILL.md：使用 `{{COMPANY_NAME}}` 占位符
+- CONFIG.yaml：存储用户的公司名称、角色等
+- AI Agent：首次使用时询问，后续自动读取
+
+### 模式 4：纯文档 SKILL（无外部依赖）
+
+适用于可以完全由 AI Agent 执行的场景。
+
+**架构**：
+```
+SKILL.md（完整规范）
+├── 角色定位
+├── 核心原则
+├── 文档结构要求
+├── 写作规范
+└── 检查清单
+        ↓
+AI Agent（理解规范 → 生成文档）
+```
+
+**实现示例**：presales-proposal、internal-project-plan
+- 无需调用外部脚本
+- 所有逻辑由 AI Agent 执行
+- 适用于文档生成、方案编制等场景
+
+---
+
+## 📖 SKILL 编写最佳实践
+
+### 1. 明确的交互流程
+
+**❌ 不好的写法**：
+```markdown
+## 使用方法
+
+调用脚本转换文件。
+```
+
+**✅ 好的写法**：
+```markdown
+## AI 交互流程
+
+### 步骤1：选择 Markdown 文件
+使用 `AskUserQuestion` 工具让用户选择文件。
+
+### 步骤2：选择主题模板
+使用 `AskUserQuestion` 工具展示主题选项：
+- purple - 紫色渐变（售前方案）
+- blue - 蓝色科技（技术文档）
+
+### 步骤3：执行转换
+调用脚本：`python3 scripts/convert.py [file] --theme [theme]`
+
+### 步骤4：告知用户
+```
+✅ 转换完成！
+📄 输出文件：/path/to/document.html
+```
+```
+
+### 2. 职责分离清晰
+
+**❌ 不好的写法**：
+```markdown
+让 AI 生成 SVG 图形，然后替换到 HTML 中。
+```
+
+**✅ 好的写法**：
+```markdown
+**职责分工：**
+- **脚本负责**（机械工作）：提取、占位符替换、文件读写
+- **AI Agent负责**（智能工作）：理解结构、生成SVG代码
+
+**脚本不验证**SVG/HTML格式，格式验证由 AI Agent 在生成代码时自行负责。
+```
+
+### 3. 按需加载技术细节
+
+**❌ 不好的写法**（所有内容都在 SKILL.md）：
+```markdown
+## SKILL
+
+[20 页的详细技术规范...]
+```
+
+**✅ 好的写法**（分层组织）：
+```markdown
+## SKILL
+
+## AI 交互流程
+[核心流程...]
+
+## 技术指南（按需读取）
+- 📄 输出格式和代码要求：见 `guides/output-specs.md`
+- 🎨 ASCII识别和转换技巧：见 `guides/ascii-to-svg.md`
+
+**AI Agent 只在需要生成代码时才读取 guides。**
+```
+
+### 4. 检查清单验证
+
+在 SKILL 末尾添加检查清单，帮助 AI Agent 自我验证：
+
+```markdown
+## 检查清单
+
+### 内容检查
+- [ ] 四大核心板块完整
+- [ ] ASCII 图都标注了类型
+- [ ] 使用了主题色系
+
+### 格式检查
+- [ ] SVG 以 `<svg` 开头
+- [ ] HTML 使用语义化标签
+
+### 语言检查
+- [ ] 流畅叙述，避免清单式
+- [ ] 使用具体示例
+```
+
+### 5. 错误示例对比
+
+使用"正确/错误"对比，帮助 AI Agent 理解要求：
+
+```markdown
+### 错误示例
+
+❌ **错误**：没有标注类型
+```
+┌────────┐
+│ 系统   │
+└────────┘
+```
+
+✅ **正确**：标注类型
+````markdown
+```ascii:architecture
+┌────────┐
+│ 系统   │
+└────────┘
+```
+````
+```
+
+---
+
+## 🛠️ 技术栈
+
+### SKILL 编写
+- **格式**：Markdown + YAML Front Matter
+- **配置管理**：YAML
+- **占位符**：`{{VARIABLE}}` 格式
+
+### Python 脚本（可选）
+- **版本**：Python 3.6+
+- **依赖**：PyYAML、markdown（按需）
+- **职责**：文件操作、格式转换、占位符处理
+
+---
 
 ## 📂 目录结构
 
 ```
 skills-techco-proposals/
+├── CLAUDE.md                          # Claude Code 工作指南
 ├── README.md                          # 本文档
 ├── LICENSE                            # MIT 许可证
 │
-├── converting-markdown/               # Markdown转HTML技能
-│   ├── SKILL.md
-│   ├── guides/
-│   │   ├── output-specs.md            # 输出规范
-│   │   └── ascii-to-svg.md            # ASCII图转换技巧
-│   ├── templates/                     # 主题配置
-│   │   ├── purple.yaml
-│   │   ├── blue.yaml
-│   │   ├── green.yaml
-│   │   └── minimal.yaml
-│   └── scripts/
-│       ├── convert.py                 # 主转换脚本
-│       ├── themes.py                  # 主题加载工具
-│       ├── extract_placeholders.py    # 提取占位符
-│       └── replace_svg.py             # 替换SVG
+├── converting-markdown/               # 案例1：脚本+AI协作
+│   ├── SKILL.md                       # 主交互流程
+│   ├── guides/                        # 按需加载的技术指南
+│   │   ├── output-specs.md            # 输出格式规范
+│   │   └── ascii-to-svg.md            # ASCII转换技巧
+│   ├── templates/                     # 配置文件（YAML）
+│   └── scripts/                       # Python脚本
 │
-├── presales-proposal/                 # 售前方案编制技能
-│   └── SKILL.md
+├── presales-proposal/                 # 案例2：纯文档SKILL
+│   ├── SKILL.md                       # 完整编制规范
+│   └── CONFIG.yaml                    # 用户配置
 │
-└── internal-project-plan/             # 内部项目规划技能
-    └── SKILL.md
+└── internal-project-plan/             # 案例3：复杂计算SKILL
+    ├── SKILL.md                       # 规划规范+计算逻辑
+    └── CONFIG.yaml                    # 用户配置
 ```
 
-## 🎨 设计理念
+---
 
-### 核心原则
+## 🚀 快速开始
 
-1. **职责分离**：脚本做机械工作，AI做智能工作
-2. **单一定义源**：SKILL.md 定义流程，guides 提供技术细节
-3. **按需加载**：AI 只在需要时读取 guides
-4. **平台无关**：兼容 Claude、ChatGPT、Gemini 等所有支持 SKILL 格式的 AI Agent
+### 安装依赖
 
-### ASCII 图规范
-
-所有 ASCII 图**必须标注类型**：
-
-````markdown
-```ascii:architecture  # 架构图
-```ascii:flowchart     # 流程图
-```ascii:ui            # UI界面图
-```ascii:timeline      # 时间线图
-```ascii:diagram       # 通用图
+```bash
+# 仅 converting-markdown 需要 Python 依赖
+pip3 install pyyaml markdown
 ```
-````
 
-**为什么要标注类型？**
-1. ✅ 保持等宽字体，确保字符对齐
-2. ✅ 智能转换 SVG（converting-markdown 根据类型选择最优策略）
-3. ✅ 精准识别，不会误判普通文本
-4. ✅ 版本控制友好，git diff 更清晰
+### 使用案例
+
+```bash
+# 案例1：converting-markdown（脚本+AI协作）
+python3 converting-markdown/scripts/convert.py document.md --theme purple
+
+# 案例2：presales-proposal（纯文档SKILL）
+skill presales-proposal "为XX协会编制会员系统建设方案"
+
+# 案例3：internal-project-plan（复杂计算）
+skill internal-project-plan "XX协会2026年度项目规划"
+```
+
+---
+
+## 🎓 学习路径
+
+### 初学者：理解 SKILL 基本结构
+
+1. 阅读 `presales-proposal/SKILL.md`
+   - 学习基本的 SKILL 格式
+   - 理解角色定位和核心原则
+   - 掌握占位符系统
+
+2. 阅读 `internal-project-plan/SKILL.md`
+   - 学习如何编写复杂的业务逻辑
+   - 理解如何让 AI Agent 执行计算
+
+### 进阶：设计交互流程
+
+3. 阅读 `converting-markdown/SKILL.md`
+   - 学习多步骤交互流程设计
+   - 理解脚本与 AI 协作模式
+
+4. 阅读 `converting-markdown/guides/`
+   - 学习按需加载技术
+   - 理解如何分层组织内容
+
+### 高级：自定义 SKILL
+
+5. 参考 3 个案例的结构和模式
+6. 根据自己的需求编写 SKILL
+7. 使用检查清单验证质量
+
+---
+
+## 🔍 设计决策记录
+
+### 为什么使用 ASCII 图标注类型？
+
+**问题**：如何让 AI Agent 识别 ASCII 图并智能转换？
+
+**解决方案**：要求用户标注类型（` ```ascii:architecture ` `）
+
+**优点**：
+- ✅ 保持等宽字体，确保字符对齐
+- ✅ AI Agent 可以根据类型选择最优转换策略
+- ✅ 不会误判普通文本中的框线字符
+- ✅ 版本控制友好，git diff 更清晰
+
+**参考**：[ASCII 图规范](#ascii-图规范)
+
+### 为什么使用 guides/ 按需加载？
+
+**问题**：如何减少 AI 的上下文负担？
+
+**解决方案**：将技术细节放在 guides/ 目录，AI 只在需要时读取
+
+**优点**：
+- ✅ SKILL.md 保持简洁，聚焦核心流程
+- ✅ 技术细节可以独立更新
+- ✅ 减少 AI 的 token 消耗
+
+**参考**：[按需加载模式](#模式-2按需加载skillmd--guides)
+
+### 为什么职责要分离？
+
+**问题**：如何避免 AI Agent 做不擅长的机械工作？
+
+**解决方案**：脚本负责文件操作，AI 负责智能决策
+
+**优点**：
+- ✅ 稳定可靠：脚本处理文件操作，不会出错
+- ✅ 可追溯：中间结果保存为 JSON
+- ✅ 职责清晰：AI 专注于理解和生成
+
+**参考**：[职责分离模式](#模式-1职责分离脚本--ai-协作)
+
+---
 
 ## 🤝 贡献指南
 
-欢迎提交 Issue 和 Pull Request！
+欢迎贡献你的 SKILL 设计经验和案例！
+
+### 贡献类型
+
+- 📝 新的 SKILL 设计模式
+- 🔍 最佳实践案例
+- 🐛 Bug 修复和改进
+- 📖 文档完善
 
 ### 贡献流程
 
 1. Fork 本仓库
-2. 创建特性分支 (`git checkout -b feature/amazing-feature`)
-3. 提交更改 (`git commit -m 'Add amazing feature'`)
-4. 推送到分支 (`git push origin feature/amazing-feature`)
+2. 创建特性分支 (`git checkout -b feature/amazing-pattern`)
+3. 提交更改 (`git commit -m 'Add: 新的设计模式'`)
+4. 推送到分支 (`git push origin feature/amazing-pattern`)
 5. 开启 Pull Request
 
-### 代码规范
-
-- SKILL.md 文档遵循[项目规范](CONTRIBUTING.md)
-- Python 代码遵循 PEP 8
-- 提交信息使用清晰、描述性的语言
+---
 
 ## 📄 许可证
 
 MIT License - 详见 [LICENSE](LICENSE) 文件
 
+---
+
 ## 🔗 相关资源
 
 - [Claude Code 官方文档](https://docs.anthropic.com/claude-code)
 - [SKILL 格式规范](https://docs.anthropic.com/claude-code/skills)
-- [Markdown 转 HTML 最佳实践](converting-markdown/SKILL.md)
-
-## 📮 联系方式
-
-- 问题反馈：[GitHub Issues](https://github.com/yourname/skills-techco-proposals/issues)
-- 邮箱：your-email@example.com
+- [CLAUDE.md - 工作指南](CLAUDE.md)
 
 ---
 
-**Made with ❤️ for Tech Companies**
+**Made with ❤️ for AI Agent SKILL Makers**
