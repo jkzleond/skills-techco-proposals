@@ -1,0 +1,59 @@
+name: "紫色渐变主题"
+description: "专业售前方案，紫色渐变，适合商务文档和方案汇报"
+
+colors:
+  primary: "#667eea"
+  secondary: "#764ba2"
+  background: "#ffffff"
+  text: "#333333"
+  gradient_start: "#667eea"
+  gradient_end: "#764ba2"
+  link: "#1890ff"
+  code_bg: "#2d2d2d"
+  code_text: "#f8f8f2"
+  border_color: "#667eea"
+  header_text: "#ffffff"
+  blockquote_bg: "rgba(102, 126, 234, 0.1)"
+  blockquote_border: "rgba(102, 126, 234, 0.2)"
+  table_hover: "rgba(102, 126, 234, 0.05)"
+  code_inline_bg: "#f4f4f4"
+  code_inline_color: "#e83e8c"
+
+# 间距
+spacing:
+  h2_margin: "50px 0 25px 0"
+  h3_margin: "35px 0 20px 0"
+  h4_margin: "25px 0 15px 0"
+  p_margin: "15px 0"
+
+# 渐变定义
+gradients:
+  background: "linear-gradient(135deg, {{primary}} 0%, {{secondary}} 100%)"
+  header: "linear-gradient(135deg, {{primary}} 0%, {{secondary}} 100%)"
+  table_header: "linear-gradient(135deg, {{primary}} 0%, {{secondary}} 100%)"
+  blockquote: "linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)"
+  table_hover: "rgba(102, 126, 234, 0.05)"
+
+# 特殊样式
+special_styles:
+  blockquote:
+    border_left: "4px solid {{primary}}"
+    border_radius: "0 8px 8px 0"
+    padding: "15px 20px"
+    font_style: "italic"
+
+  table:
+    box_shadow: "0 4px 12px rgba(0, 0, 0, 0.08)"
+    border_radius: "10px"
+    hover_transition: "background 0.3s ease"
+
+  code_inline:
+    background: "#f4f4f4"
+    padding: "3px 8px"
+    border_radius: "4px"
+    color: "#e83e8c"
+
+  pre:
+    padding: "25px"
+    border_radius: "10px"
+    box_shadow: "0 4px 12px rgba(0, 0, 0, 0.1)"

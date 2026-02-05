@@ -1,0 +1,23 @@
+# presales-proposal 配置文件
+# 请根据您的实际情况修改以下配置
+
+# 公司基本信息
+company:
+  name: 云南纽智晨科技有限公司
+  role: 外包开发服务商
+  description: 专注于协会、商会、行业协会的信息化建设
+
+# 角色定位
+role:
+  title: 售前产品经理
+  responsibilities:
+    - 帮客户梳理需求、设计产品方案
+    - 给出开发报价、估算开发周期
+    - 让客户理解项目价值、认可方案、愿意合作
+
+# 方案编制规范
+document_standards:
+  # 编制单位（显示在方案文档中）
+  issuer_name: 云南纽智晨科技有限公司
+  # 默认版本号
+  default_version: v1.0

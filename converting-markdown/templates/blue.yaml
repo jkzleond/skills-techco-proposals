@@ -1,0 +1,59 @@
+name: "蓝色科技主题"
+description: "技术文档风格，蓝色系，适合技术方案和 API 文档"
+
+colors:
+  primary: "#1890ff"
+  secondary: "#096dd9"
+  background: "#ffffff"
+  text: "#333333"
+  gradient_start: "#1890ff"
+  gradient_end: "#0050b3"  # 加深渐变终点颜色，增强对比度
+  link: "#1890ff"
+  code_bg: "#282c34"
+  code_text: "#abb2bf"
+  border_color: "#1890ff"
+  header_text: "#ffffff"  # 头部文字颜色
+  blockquote_bg: "rgba(24, 144, 255, 0.08)"
+  blockquote_border: "rgba(24, 144, 255, 0.15)"
+  table_hover: "rgba(24, 144, 255, 0.05)"
+  code_inline_bg: "#e6f7ff"
+  code_inline_color: "#096dd9"
+
+# 间距
+spacing:
+  h2_margin: "40px 0 20px 0"
+  h3_margin: "30px 0 18px 0"
+  h4_margin: "22px 0 12px 0"
+  p_margin: "12px 0"
+
+# 渐变定义
+gradients:
+  background: "linear-gradient(135deg, {{primary}} 0%, {{secondary}} 100%)"
+  header: "linear-gradient(135deg, {{primary}} 0%, {{secondary}} 100%)"
+  table_header: "linear-gradient(135deg, {{primary}} 0%, {{secondary}} 100%)"
+  blockquote: "linear-gradient(135deg, rgba(24, 144, 255, 0.08) 0%, rgba(9, 109, 217, 0.08) 100%)"
+  table_hover: "rgba(24, 144, 255, 0.05)"
+
+# 特殊样式
+special_styles:
+  blockquote:
+    border_left: "4px solid {{primary}}"
+    border_radius: "0 6px 6px 0"
+    padding: "12px 18px"
+    font_style: "italic"
+
+  table:
+    box_shadow: "0 2px 8px rgba(0, 0, 0, 0.06)"
+    border_radius: "8px"
+    hover_transition: "background 0.25s ease"
+
+  code_inline:
+    background: "#e6f7ff"
+    padding: "2px 6px"
+    border_radius: "3px"
+    color: "#096dd9"
+
+  pre:
+    padding: "20px"
+    border_radius: "8px"
+    box_shadow: "0 2px 8px rgba(0, 0, 0, 0.08)"
