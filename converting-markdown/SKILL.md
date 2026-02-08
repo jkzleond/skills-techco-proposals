@@ -1,6 +1,6 @@
 ---
 name: converting-markdown
-description: Convert Markdown documents to beautiful HTML with multiple themes, responsive design, and print optimization
+description: 将 Markdown 文档转换为精美的 HTML，支持智能 ASCII 图转 SVG。适用场景：(1) 将 Markdown 转换为 HTML 用于演示或文档，(2) 将 ASCII 图（架构图/流程图/UI/时间线）转换为专业 SVG/HTML 图形，(3) 应用专业主题（紫/蓝/绿/极简）生成商务或技术文档。支持 AI 辅助的智能 SVG 转换，3 步流程实现精美图形。
 ---
 
 # Converting Markdown to HTML
@@ -27,7 +27,38 @@ python3 scripts/convert.py --list-themes
 - ✅ 打印优化（自动移除渐变和阴影）
 - ✅ **智能段落合并**：使用专业库，无多余`<br>`标签
 - ✅ **ASCII图清晰显示**：用等宽字体保留，结构准确
+- ✅ **智能 SVG 转换**：AI Agent 将 ASCII 图转换为精美 SVG/HTML
 - ✅ 稳定的转换逻辑（Python 脚本，依赖 markdown + PyYAML）
+
+## ⚠️ 重要约束：UI 图必须静态展示
+
+**对于 UI 类型的 ASCII 图（弹出窗、对话框、表单等）：**
+
+❌ **禁止：**
+- 使用 JavaScript 控制显示/隐藏
+- 使用 `onclick`、`onhover` 等事件处理
+- 使用 `display: none` 隐藏内容
+- 需要用户交互才能看到完整内容
+
+✅ **必须：**
+- **所有内容直接显示在文档中**
+- 使用纯 HTML/CSS，不用 JavaScript
+- 目标是**展示设计效果**，不是实现功能
+- 适合打印和导出 PDF
+
+**示例对比：**
+```html
+<!-- ❌ 错误：可交互弹窗 -->
+<button onclick="showModal()">打开</button>
+<div id="modal" style="display:none;">弹窗内容</div>
+
+<!-- ✅ 正确：静态展示 -->
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px; padding: 24px;">
+  <h3>弹窗标题</h3>
+  <p>弹窗内容直接显示</p>
+</div>
+```
 
 ## Available Themes
 
@@ -65,6 +96,39 @@ python3 scripts/convert.py --list-themes               # 列出所有主题
 ## AI 交互流程
 
 当使用本 skill 时，AI Agent 应按以下流程与用户交互：
+
+### 流程概述
+
+```mermaid
+graph TD
+    A[开始] --> B{用户指定文件?}
+    B -->|否| C[使用 AskUserQuestion 选择文件]
+    B -->|是| D[选择主题模板]
+    C --> D
+
+    D --> E{文件包含 ASCII 图?}
+    E -->|否| F[直接转换 HTML]
+    E -->|是| G{处理方式?}
+
+    G -->|保留原样| F
+    G -->|智能转换| H[步骤1: 生成占位符 HTML]
+    H --> I[步骤2: 提取占位符到 JSON]
+    I --> J[步骤3: AI 生成 SVG/HTML]
+    J --> K[步骤4: 替换占位符]
+
+    F --> L[验证输出]
+    K --> L
+    L --> M[完成]
+```
+
+### 快速参考
+
+| 步骤 | 操作 | 说明 |
+|------|------|------|
+| **步骤1** | 选择 Markdown 文件 | 使用 `AskUserQuestion` 工具 |
+| **步骤2** | 选择主题 | purple/blue/green/minimal |
+| **步骤3** | 处理 ASCII 图 | 保留原样 OR 智能转换（3步流程） |
+| **步骤4** | 验证输出 | 检查清单见"验证规则"章节 |
 
 ### ⚠️ AI Agent 执行规范
 
@@ -107,9 +171,7 @@ python3 /path/to/skill/scripts/convert.py document.md --theme blue
 
 如果用户未指定文件，使用 `AskUserQuestion` 工具让用户选择。
 
-### 步骤2：选择主题模板
-
-**⚠️ 优先级：这是第2步，必须在询问ASCII图处理之前完成。**
+### 步骤2：选择主题模板 ⚠️ 必须先完成此步骤
 
 使用 `AskUserQuestion` 工具展示主题选项：
 - **purple** - 紫色渐变（售前方案、商务文档）
@@ -117,140 +179,125 @@ python3 /path/to/skill/scripts/convert.py document.md --theme blue
 - **green** - 绿色清新（内部报告、运营数据）
 - **minimal** - 极简灰度（学术论文、正式报告）
 
-**重要：主题选择会影响后续图形的颜色，必须先确定主题。**
+**重要**：主题选择会影响后续图形的颜色，必须先确定主题。
 
-### 步骤3：询问 ASCII 图处理方式
+### 步骤3：处理 ASCII 图 ⚠️ 检测文档并询问处理方式
 
-**⚠️ 重要：必须先完成步骤2（选择主题），再执行此步骤。**
+**检测文档是否包含 ASCII 图**（识别 ` ```ascii:类型 ` 代码块）
 
-**检测文档是否包含ASCII图**（识别 ` ```ascii:类型 ` 代码块）
-
-支持5种图形类型：
+支持 5 种图形类型：
 - `architecture` - 系统架构图
 - `flowchart` - 流程图
-- `ui` - UI界面图
+- `ui` - UI 界面图
 - `timeline` - 时间线图
 - `diagram` - 通用图
 
-**统计各类型数量：**
-```python
-diagrams = {
-    'architecture': 3,  # 找到3个架构图
-    'flowchart': 2,     # 找到2个流程图
-    'ui': 4,            # 找到4个UI图
-    'timeline': 1,       # 找到1个时间线
-}
-```
+**如果包含 ASCII 图，询问用户处理方式：**
 
-如果包含ASCII图，询问用户：
-- **保留原样** - 用等宽字体显示，快速稳定
-- **智能转换 SVG** - 根据类型生成精美矢量图形
-
-**选择1（保留原样）：**
+#### 选项1：保留原样
 - 直接调用 `python3 scripts/convert.py [file] --theme [theme]`
-- ASCII图用等宽字体清晰显示
-- 适合快速预览、不需要美化的场景
+- ASCII 图用等宽字体显示
+- 适合快速预览
 
-**选择2（智能转换 SVG）：**
+#### 选项2：智能转换 SVG（3 步流程）
 
-⚠️ **重要**：完整的智能转换需要3个步骤（脚本化流程）
-
-**步骤1：生成带占位符的HTML**
+**子步骤 1：生成带占位符的 HTML**
 ```bash
 AI_SVG_CONVERSION=true python3 scripts/convert.py [file] --theme [theme]
 ```
 
-脚本输出：
-```
-✅ AI占位符已生成
-```
-
-**步骤2：提取占位符到JSON**
+**子步骤 2：提取占位符到 JSON**
 ```bash
 python3 scripts/extract_placeholders.py [file.html]
 ```
 
-生成JSON文件：
-```json
-{
-  "total": 8,
-  "placeholders": [
-    {
-      "id": 1,
-      "type": "architecture",
-      "raw_content": "┌────────┐\n│ 系统  │...",
-      "svg_code": null  ← AI Agent填充这个字段
-    }
-  ]
-}
-```
+**子步骤 3：AI 使用多 Task 并行生成 SVG/HTML**
 
-**步骤3：AI Agent生成SVG并替换**
+**🔴 核心要求：如果有 Task 工具，必须使用 Task 工具实现并行**
 
-AI Agent需要：
-1. **读取JSON文件**，获取所有占位符的`raw_content`
-2. **智能理解结构**，为每个占位符生成`svg_code`
-3. **保存JSON文件**
-4. **调用替换脚本**：
+| 方式 | 耗时（8个图） | 说明 |
+|------|--------------|------|
+| **顺序处理** | ~80秒 | AI 一个接一个生成 |
+| **多 Task 并行** | ~20秒 | 多个 Task 同时工作 |
+| **加速比** | **4倍** | - |
+
+**实现方式：**
+
+1. **读取 extracted.json**，获取所有占位符
+2. **为每个占位符创建一个 Task**（如果平台支持 Task 工具）
+3. **所有 Task 并行执行**
+4. **等待所有 Task 完成**，然后调用替换脚本
+
+**质量要求（每个 Task 都必须满足）：**
+
+无论使用多少个 Task，每个生成的图形都必须包含：
+- ✅ 圆角效果（`rx="8"`）
+- ✅ 主题色系（primary、secondary）
+- ✅ 字体设置（`font-family`）
+- ✅ HTML 类型必须有 class 前缀（`[类型]-[ID]-`，避免冲突）
+- ✅ SVG 代码长度 > 500 字符（不是简略版）
+     ```
+   - **基于 ID 唯一匹配**，不依赖数组顺序
+
+3. **调用替换脚本**：
    ```bash
-   python3 scripts/replace_svg.py [file.json]
+   python3 scripts/replace_svg.py .cvt-caches/{document}/{session_id}/extracted.json
    ```
+   - 从缓存目录读取所有生成的文件
+   - 基于 `id` 精确匹配并替换
+   - 自动清理缓存目录
 
-**输出结果**：生成包含精美SVG图形的最终HTML文件
+**效率提升：**
+- ✅ **4-5倍速度提升**：并行生成 vs 顺序生成（8个图：80秒 → 18秒）
+- ✅ **无单点写入瓶颈**：每个占位符独立文件
+- ✅ **容错性强**：部分失败不影响其他占位符
 
+**职责分工：**
+- **脚本负责**（机械工作）：提取、替换、文件读写、缓存管理
+- **AI Agent 负责**（智能工作）：理解结构、生成代码、并行文件写入
 
 **📖 参考文档：**
 - 📄 输出格式和代码要求：见 `guides/output-specs.md`
 - 🎨 ASCII识别和转换技巧：见 `guides/ascii-to-svg.md`
-**职责分工：**
-- **脚本负责**（机械工作）：提取、占位符替换、文件读写
-- **AI Agent负责**（智能工作）：理解结构、生成SVG代码
+- 🔧 技术细节：见 `guides/technical-details.md`
 
-**优点**：
+**优点：**
 - ✅ 稳定可靠：脚本处理文件操作，不会出错
-- ✅ 可追溯：JSON保存中间结果
+- ✅ 并行高效：AI Agent 可同时生成多个图形
+- ✅ 可追溯：缓存目录保存中间结果
 - ✅ 可验证：每步都有明确输出
 - ✅ 职责分离清晰
+- ✅ 自动清理：转换完成后删除缓存
 
 适合演示、展示、汇报等需要美观图形的场景。
 
 
-### 步骤4：验证转换结果
+### 步骤4：验证转换结果 ⚠️ AI Agent 必须验证
 
-**⚠️ 重要：AI Agent 自行验证格式**
-
-replace_svg.py 脚本**不验证**SVG/HTML格式，只负责替换。格式验证由 AI Agent 在生成代码时自行负责。
-
-**AI Agent 验证清单：**
+**快速验证清单：**
 
 生成代码时检查：
-1. ✅ SVG 以 `<svg` 开头，`</svg>` 结尾
-2. ✅ HTML 使用语义化标签（`<div>`, `<button>` 等）
-3. ✅ 使用主题色系（blue: #1890ff, purple: #667eea 等）
-4. ✅ 包含必要属性（viewBox、xmlns 等）
-5. ✅ 没有明显的语法错误
+- ✅ SVG 以 `<svg` 开头，`</svg>` 结尾
+- ✅ HTML 使用语义化标签（`<div>`, `<button>` 等）
+- ✅ 使用主题色系（见"配色速查表"）
+- ✅ 包含必要属性（viewBox、xmlns 等）
+- ✅ **UI 类型必须是静态展示（⚠️ 重要）：**
+  - ❌ 不使用 JavaScript（onclick、onhover 等）
+  - ❌ 不使用 display:none 等隐藏内容
+  - ❌ 不需要用户交互就能看到所有内容
+  - ✅ 所有内容直接显示在文档中
+- ✅ 没有明显的语法错误
 
 替换后检查：
 ```bash
 # 检查是否还有未替换的占位符
 grep -c "AI-SVG-PLACEHOLDER" output.html
 # 输出应该为 0
-
-# 统计SVG和HTML数量
-echo "SVG: $(grep -c '<svg' output.html)"
-echo "HTML界面: $(grep -c '<div style=\"font-family' output.html)"
 ```
 
-**使用Read工具查看效果：**
-- 读取生成的 HTML 文件
-- 检查 SVG/HTML 是否正确渲染
-- 如果发现问题，重新生成并替换
+**完整的验证规则和错误预防**：见 `guides/output-specs.md`
 
-**输出结果**：
-- 选择1：HTML文件（ASCII图用等宽字体）
-- 选择2：HTML文件（ASCII图转换为精美图形）
-
-## Adding Custom Themes
+## 输出文件规范
 
 要添加新主题，只需在 `templates/` 目录创建新的 YAML 文件：
 
@@ -277,40 +324,34 @@ echo "HTML界面: $(grep -c '<div style=\"font-family' output.html)"
 - **gradients**: 渐变定义
 - **special_styles**: 特殊元素样式（表格、代码、引用）
 
-## Output
+## 输出文件规范
 
-- **File**: 与输入文件同目录，扩展名改为 `.html`
+- **位置**：与输入文件同目录，扩展名改为 `.html`
   - 例如：输入 `/path/to/document.md` → 输出 `/path/to/document.html`
   - ⚠️ **注意**：HTML 文件生成在 Markdown 文件所在目录，不是在 SKILL 或脚本目录
-- **Encoding**: UTF-8
-- **Size**: 通常 50-100 KB
-- **Style**: 根据选择的主题应用不同样式
+
+- **编码**：UTF-8
+
+- **大小**：通常 50-100 KB（含 SVG 时可能更大）
+
+- **样式**：根据选择的主题应用不同样式
 
 **AI Agent 执行注意事项：**
-- ⚠️ **不要使用 cd 切换目录**
+- ⚠️ 不要使用 cd 切换目录
 - ⚠️ 使用完整路径（绝对路径或从当前工作目录的相对路径）
 - ✅ 执行后明确告知输出文件的完整路径
 
-## Technical Details
+## 技术细节
 
-- **Language**: Python 3.6+（使用 f-string 语法）
-- **Dependencies**:
-  - **必需**: PyYAML（配置文件解析）
-  - **必需**: markdown（Markdown 转 HTML）
-- **File encoding**: UTF-8
-- **Input formats**: Markdown (.md)
-- **Output format**: HTML5
+**快速参考：**
+- **Python 版本**：3.6+（使用 f-string 语法）
+- **依赖**：`pip3 install pyyaml markdown`
+- **输入格式**：Markdown (.md), UTF-8
+- **输出格式**：HTML5, UTF-8
 
-### 安装依赖
+**完整的技术细节、主题配置格式、故障排查**：见 `guides/technical-details.md`
 
-```bash
-# 安装必需依赖
-pip3 install pyyaml markdown
-```
-
-**注意**: 本 SKILL 由 AI Agent 调用，Agent 应使用 `AskUserQuestion` 工具与用户交互，收集参数后调用脚本。
-
-## Architecture
+## 项目结构
 
 ```
 converting-markdown/
@@ -318,7 +359,8 @@ converting-markdown/
 ├── LICENSE.txt           # MIT 许可证
 ├── guides/               # 技术指南目录
 │   ├── output-specs.md   # 输出格式规范
-│   └── ascii-to-svg.md   # ASCII图转换技巧
+│   ├── ascii-to-svg.md   # ASCII图转换技巧
+│   └── technical-details.md  # 技术细节和故障排查
 ├── templates/            # 主题配置目录
 │   ├── purple.yaml       # 紫色渐变主题
 │   ├── blue.yaml         # 蓝色科技主题
@@ -328,7 +370,79 @@ converting-markdown/
     ├── convert.py        # 主转换脚本（支持 --theme 参数）
     ├── themes.py         # 主题加载工具
     ├── extract_placeholders.py  # 提取占位符到JSON
-    └── replace_svg.py    # 替换占位符为SVG/HTML
+    └── replace_svg.py    # 从缓存读取SVG并替换
+
+# 运行时生成的缓存目录（自动清理）
+.cvt-caches/              # 缓存根目录（在文档所在目录）
+└── {文档名}/             # 按文档分组
+    └── {session_id}/     # 6位随机会话ID
+        ├── extracted.json  # 占位符映射文件
+        ├── 1.svg          # AI Agent生成的图形文件
+        ├── 2.html
+        └── ...
+```
+
+## SVG 布局指南
+
+### viewBox 尺寸推荐
+
+| 图形类型 | 推荐的 viewBox | 说明 |
+|----------|---------------|------|
+| 简单架构图（2-3节点） | 600 × 300 | 紧凑布局 |
+| 复杂架构图（4-6节点） | 800 × 500 | 更多间距 |
+| 流程图（线性） | 600 × 动态高度 | 根据步骤数计算高度 |
+| UI 界面图 | 400 × 300 | 匹配典型屏幕比例 |
+| 时间线图 | 800 × 300 | 水平布局 |
+
+### SVG 节点尺寸
+
+| 元素类型 | 宽度 | 高度 | 内边距 |
+|---------|------|------|--------|
+| 简单方框（纯文本） | 150-200 | 60-80 | 10px |
+| 复杂方框（多行文本） | 200-300 | 80-120 | 12-16px |
+| 分组容器 | 400-600 | 200-400 | 20px |
+| 决策菱形 | 120 × 120（对角线） | - | - |
+
+### SVG 间距要求
+
+- **最小水平间距**：节点之间 ≥80px
+- **最小垂直间距**：节点之间 ≥60px
+- **箭头长度**：50-100px（确保清晰可见）
+- **文本内边距**：节点内 10-16px
+
+### HTML 布局指南
+
+| 元素类型 | 宽度 | 最大宽度 | 内边距 | 说明 |
+|---------|------|---------|--------|------|
+| 对话框 | 300-400px | - | 20-24px | 居中显示 |
+| 表单输入 | 100% | - | 10-12px | 响应式 |
+| 按钮 | 80-120px | - | 10-14px | 根据文本调整 |
+
+### HTML 间距要求
+
+- **表单字段之间**：16-20px
+- **按钮之间**：12px（gap）
+- **区块之间**：20-24px（margin）
+
+## 配色速查表
+
+| 主题 | 主色（primary） | 辅助色（secondary） | 背景色（bg-light） | 边框色（border） |
+|------|---------------|-------------------|------------------|----------------|
+| **purple** | #667eea | #764ba2 | #f3f3ff | #d3d3ff |
+| **blue** | #1890ff | #096dd9 | #e6f7ff | #91d5ff |
+| **green** | #52c41a | #389e0d | #f6ffed | #b7eb8f |
+| **minimal** | #333333 | #666666 | #fafafa | #d9d9d9 |
+
+**使用方法：**
+
+SVG 中：
+```xml
+<rect fill="var(--primary)" stroke="var(--border)" />
+```
+
+HTML 中：
+```html
+<div style="background: var(--primary); border: 1px solid var(--border);">
 ```
 
 ## Examples
@@ -346,6 +460,146 @@ python3 scripts/convert.py "运营报告.md" --theme green
 # 转换学术论文（使用极简主题）
 python3 scripts/convert.py "论文.md" --theme minimal
 ```
+
+## 完整示例
+
+### 示例 1：简单文档转换（无 ASCII 图）
+
+**输入文件：** `project-plan.md`
+```markdown
+# 项目计划
+
+## 目标
+- 提升系统性能
+- 添加用户反馈功能
+- 优化移动端体验
+
+## 时间表
+1. 第一阶段：性能优化（2周）
+2. 第二阶段：新功能开发（4周）
+3. 第三阶段：测试上线（1周）
+```
+
+**转换命令：**
+```bash
+python3 scripts/convert.py project-plan.md --theme purple
+```
+
+**输出效果：**
+- ✅ 渐变紫色标题（#667eea → #764ba2）
+- ✅ 列表自动应用主题样式
+- ✅ 响应式设计，适配各种屏幕
+- ✅ 打印优化（移除渐变和阴影）
+
+---
+
+### 示例 2：ASCII 架构图转 SVG
+
+**输入文件：** `architecture.md`
+```markdown
+# 系统架构
+
+\`\`\`ascii:architecture
+┌─────────────┐      ┌─────────────┐
+│   Web App   │────▶│   API GW    │
+└─────────────┘      └──────┬──────┘
+                           │
+                    ┌──────▼──────┐
+                    │   Service   │
+                    └──────┬──────┘
+                           │
+              ┌────────────┼────────────┐
+              ▼            ▼            ▼
+       ┌──────────┐ ┌──────────┐ ┌──────────┐
+       │ Database │ │   Cache  │ │  Queue   │
+       └──────────┘ └──────────┘ └──────────┘
+\`\`\`
+```
+
+**智能转换流程：**
+```bash
+# 步骤1：生成带占位符的 HTML
+AI_SVG_CONVERSION=true python3 scripts/convert.py architecture.md --theme blue
+
+# 步骤2：提取占位符到 JSON
+python3 scripts/extract_placeholders.py architecture.html
+
+# 步骤3：AI 生成 SVG 并替换（AI Agent 执行）
+python3 scripts/replace_svg.py architecture.json
+```
+
+**生成的 SVG 效果：**
+- ✅ 蓝色渐变方框（#1890ff → #096dd9）
+- ✅ 圆角矩形（rx="8"）
+- ✅ 阴影效果
+- ✅ 箭头连接线
+- ✅ 响应式 SVG（viewBox）
+
+---
+
+### 示例 3：UI 界面图转 HTML
+
+**输入文件：** `login-ui.md`
+```markdown
+\`\`\`ascii:ui
+┌────────────────────┐
+│   登录对话框       │
+├────────────────────┤
+│  用户名: [______]  │
+│  密码:   [______]  │
+│  □ 记住我          │
+│                    │
+│    [登录]  [取消]  │
+└────────────────────┘
+\`\`\`
+```
+
+**智能转换流程：**
+```bash
+# 步骤1-3：同示例 2
+AI_SVG_CONVERSION=true python3 scripts/convert.py login-ui.md --theme purple
+python3 scripts/extract_placeholders.py login-ui.html
+# AI Agent 生成 HTML 界面代码
+python3 scripts/replace_svg.py login-ui.json
+```
+
+**生成的 HTML 效果：**
+- ✅ 紫色渐变边框（#667eea）
+- ✅ 圆角对话框（border-radius: 12px）
+- ✅ 阴影效果（box-shadow）
+- ✅ 表单输入框样式
+- ✅ 按钮悬停效果（hover）
+- ✅ 真实可交互的 HTML 界面
+
+---
+
+### 示例 4：流程图转 SVG
+
+**输入文件：** `workflow.md`
+```markdown
+\`\`\`ascii:flowchart
+    ┌────────┐
+    │  开始  │
+    └───┬────┘
+        │
+        ▼
+   ┌──────────┐
+   │ 输入数据 │
+   └───┬──────┘
+       │
+       ▼
+   ┌──────────┐     ┌─────────┐
+   │  处理    │────▶│  输出   │
+   └──────────┘     └─────────┘
+\`\`\`
+```
+
+**输出效果：**
+- ✅ 垂直流程图布局
+- ✅ 箭头连接（带箭头标记）
+- ✅ 主题色系（green: #52c41a）
+- ✅ 圆角节点
+- ✅ 清晰的文本标注
 
 ## Notes
 
