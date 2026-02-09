@@ -39,12 +39,19 @@ python3 scripts/convert.py --list-themes
 - 使用 `onclick`、`onhover` 等事件处理
 - 使用 `display: none` 隐藏内容
 - 需要用户交互才能看到完整内容
+- **生成完整的 HTML 文档**（包含 `<html>`, `<head>`, `<body>`, `<!DOCTYPE>` 等标签）
 
 ✅ **必须：**
 - **所有内容直接显示在文档中**
 - 使用纯 HTML/CSS，不用 JavaScript
+- **生成 HTML 片段（fragment）**，只包含 UI 组件代码
 - 目标是**展示设计效果**，不是实现功能
 - 适合打印和导出 PDF
+
+**⚠️ HTML 片段规范：**
+- ✅ 允许：`<div>`, `<button>`, `<span>`, `<p>`, `<h1>`~`<h6>` 等标签
+- ❌ 禁止：`<html>`, `<head>`, `<body>`, `<!DOCTYPE>` 等顶层标签
+- 原因：生成的代码会被插入到已有的 HTML 文档中，包含顶层标签会导致标签嵌套错误
 
 **示例对比：**
 ```html
@@ -285,6 +292,8 @@ python3 scripts/extract_placeholders.py [file.html]
   - ❌ 不使用 JavaScript（onclick、onhover 等）
   - ❌ 不使用 display:none 等隐藏内容
   - ❌ 不需要用户交互就能看到所有内容
+  - ❌ **不包含完整 HTML 文档标签**（`<html>`, `<head>`, `<body>`, `<!DOCTYPE>`）
+  - ✅ **必须是 HTML 片段**（可插入到 `<body>` 内部的代码）
   - ✅ 所有内容直接显示在文档中
 - ✅ 没有明显的语法错误
 

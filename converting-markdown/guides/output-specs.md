@@ -159,6 +159,62 @@ secondary = "#666666"
 - 🖨️ 静态代码支持**打印和导出 PDF**
 - 🔒 避免复杂的 JavaScript 导致兼容性问题
 
+#### 2.0.1 ⚠️ 必须生成 HTML 片段，不是完整文档
+
+**关键规范：** AI 生成的 HTML 代码必须是**HTML 片段（HTML fragment）**，不能是完整的 HTML 文档。
+
+**❌ 禁止包含的标签：**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>...</title>
+</head>
+<body>
+  <!-- 内容 -->
+</body>
+</html>
+```
+
+**✅ 正确的 HTML 片段：**
+```html
+<!-- 只包含实际的 UI 组件代码 -->
+<div style="background: linear-gradient(135deg, {primary} 0%, {secondary} 100%);
+            border-radius: 12px;
+            padding: 24px;">
+  <h3 style="color: white; margin-bottom: 12px;">标题</h3>
+  <p style="color: rgba(255,255,255,0.9);">内容描述</p>
+  <button style="padding: 10px 20px; background: white; color: {primary}; border: none; border-radius: 8px; font-weight: 600;">
+    按钮
+  </button>
+</div>
+```
+
+**为什么不能生成完整文档？**
+1. **避免标签嵌套**：生成的代码会被插入到已有的 HTML 文档中，如果包含 `<html>`、`<body>` 等标签，会导致标签嵌套错误
+2. **保持结构正确**：最终文档只能有一套 `<html>` 和 `<body>` 标签
+3. **避免样式冲突**：`<head>` 中的样式会影响整个文档
+4. **确保功能正常**：嵌套的文档结构会导致 JavaScript 和 CSS 选择器失效
+
+**允许的标签：**
+- ✅ 语义化容器：`<div>`, `<section>`, `<article>`, `<header>`, `<footer>`
+- ✅ 文本标签：`<h1>`~`<h6>`, `<p>`, `<span>`, `<strong>`, `<em>`
+- ✅ 列表：`<ul>`, `<ol>`, `<li>`
+- ✅ 表单元素：`<button>`, `<input>`, `<textarea>`, `<select>`
+- ✅ 表格：`<table>`, `<tr>`, `<td>`, `<th>`
+- ✅ 其他内联或块级元素
+
+**禁止的标签：**
+- ❌ `<!DOCTYPE html>`
+- ❌ `<html>`, `</html>`
+- ❌ `<head>`, `</head>`
+- ❌ `<body>`, `</body>`
+- ❌ `<title>`, `</title>`
+- ❌ `<meta>`, `<link>`, `<script src="...">`
+
+**验证方法：**
+生成的 HTML 代码应该能够直接插入到 `<body>` 标签内部，而不需要任何修改。
+
 #### 2.1 使用语义化标签
 
 ```html
