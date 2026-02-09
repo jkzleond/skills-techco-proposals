@@ -4,7 +4,7 @@
 
 ## 🎯 项目目的
 
-本项目是一个**关于 SKILL 制作的研究项目**，旨在探索和总结 AI Agent SKILL 的编写方法、设计模式和最佳实践。通过三个完整的实际案例，展示如何将复杂的业务流程和专业知识转化为可被 AI Agent 理解和执行的 SKILL 文档。
+本项目是一个**关于 SKILL 制作的研究项目**，旨在探索和总结 AI Agent SKILL 的编写方法、设计模式和最佳实践。通过五个完整的实际案例，展示如何将复杂的业务流程和专业知识转化为可被 AI Agent 理解和执行的 SKILL 文档。
 
 ### 可以学到什么
 
@@ -73,6 +73,32 @@
 ```
 基础/ASCII 图表 → AI Agent（视觉理解 + 风格注入） → 高保真 SVG 图表
 ```
+
+### 案例 5：fast-prototype（符合 skill-creator 标准）
+
+**研究点**：如何让 AI Agent 从需求描述生成完整的可运行原型和文档
+
+- **SKILL.md**：精简的核心工作流（134 行，符合 skill-creator 标准）
+- **references/**：按需加载的技术参考文档（5 个文档，共 1641 行）
+- **技术栈**：Vue3 + Tailwind + Element Plus
+- **渐进式披露**：三级加载系统（Metadata → SKILL.md → references/）
+
+**符合 skill-creator 标准**：
+- ✅ SKILL.md < 500 行
+- ✅ 使用 references/ 目录
+- ✅ 无 README.md
+- ✅ 无 CONFIG.yaml
+- ✅ 无多余文档
+
+**关键设计模式**：
+```
+需求描述 → AI Agent（结构化PRD生成） → 用户确认 → AI Agent（原型+文档生成）
+```
+
+**核心特点**：
+- 结构化 PRD：Mermaid（流程）+ ASCII（布局）+ 表格（功能）
+- 可运行原型：Vue3 + Tailwind + Element Plus，完整交互逻辑
+- 专业文档：标准 PRD、界面设计、前后端技术文档
 
 ---
 
@@ -317,12 +343,22 @@ skills-techco-proposals/
 │   ├── SKILL.md                       # 规划规范+计算逻辑
 │   └── CONFIG.yaml                    # 用户配置
 │
-└── svg-beautifier/                    # 案例4：视觉提升SKILL
-    ├── SKILL.md                       # 美化规范与流程
-    ├── CONFIG.yaml                    # 视觉配置（品牌色等）
-    └── guides/                        # 详细视觉指南
-        ├── chart-styles.md            # 数据图表风格
-        └── flowchart-patterns.md      # 流程架构风格
+├── svg-beautifier/                    # 案例4：视觉提升SKILL
+│   ├── SKILL.md                       # 美化规范与流程
+│   ├── CONFIG.yaml                    # 视觉配置（品牌色等）
+│   └── guides/                        # 详细视觉指南
+│       ├── chart-styles.md            # 数据图表风格
+│       └── flowchart-patterns.md      # 流程架构风格
+│
+└── fast-prototype/                   # 案例5：需求到原型SKILL（符合skill-creator标准）
+    ├── SKILL.md                       # 核心工作流（134行）
+    ├── assets/                        # 资源目录
+    └── references/                    # 按需加载的参考文档
+        ├── component-styles.md        # 组件样式指南
+        ├── design-specs.md            # 界面设计规范
+        ├── prd-template.md            # PRD文档模板
+        ├── frontend-tech.md           # 前端技术文档模板
+        └── backend-tech.md            # 后端技术文档模板
 ```
 
 ---
@@ -347,6 +383,9 @@ skill presales-proposal "为XX协会编制会员系统建设方案"
 
 # 案例3：internal-project-plan（复杂计算）
 skill internal-project-plan "XX协会2026年度项目规划"
+
+# 案例5：fast-prototype（需求到原型）
+skill fast-prototype "为一个客户管理系统设计原型"
 ```
 
 ---
@@ -376,9 +415,16 @@ skill internal-project-plan "XX协会2026年度项目规划"
 
 ### 高级：自定义 SKILL
 
-5. 参考 3 个案例的结构和模式
+5. 参考 5 个案例的结构和模式
 6. 根据自己的需求编写 SKILL
 7. 使用检查清单验证质量
+
+### 专家：全流程工作流设计
+
+6. 阅读 `fast-prototype/SKILL.md`
+   - 学习 5 阶段工作流设计
+   - 理解如何从需求到原型到文档
+   - 掌握符合 skill-creator 标准的渐进式披露设计
 
 ---
 
