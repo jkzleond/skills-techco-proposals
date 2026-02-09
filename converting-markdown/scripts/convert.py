@@ -17,28 +17,35 @@ import sys
 import html
 import markdown
 import os
+import random
+import string
 from pathlib import Path
 
 
-def convert_architecture_svg(content):
+def convert_architecture_svg(content, placeholder_id, session_id):
     """转换架构图为SVG
 
     模式1（保留原样）：直接输出ASCII代码块
     模式2（智能转换）：输出特殊标记，等待AI Agent生成SVG
+
+    Args:
+        content: ASCII图内容
+        placeholder_id: 占位符ID (1, 2, 3...)
+        session_id: 会话唯一标识 (6位随机号)
     """
     ai_enabled = os.environ.get('AI_SVG_CONVERSION', 'false').lower() == 'true'
 
     if ai_enabled:
         # 智能转换模式：输出AI可识别的标记
         escaped_content = html.escape(content)
-        return f'''<!-- AI-SVG-ARCHITECTURE-START -->
-<div class="ai-svg-placeholder" data-type="architecture" data-raw="{escaped_content}">
+        return f'''<!-- AI-SVG-ARCHITECTURE-START:id={placeholder_id},session={session_id} -->
+<div class="ai-svg-placeholder" data-id="{placeholder_id}" data-session="{session_id}" data-type="architecture" data-raw="{escaped_content}">
   <div style="background: #fff7e6; border: 2px dashed #fa8c16; border-radius: 8px; padding: 20px; margin: 25px 0; text-align: center;">
     <p style="color: #fa8c16; font-size: 14px; margin: 0;">🤖 AI Agent正在生成架构图SVG...</p>
     <p style="color: #999; font-size: 12px; margin: 5px 0 0 0;">原始内容已嵌入，等待智能处理</p>
   </div>
 </div>
-<!-- AI-SVG-ARCHITECTURE-END -->'''
+<!-- AI-SVG-ARCHITECTURE-END:id={placeholder_id},session={session_id} -->'''
     else:
         # 保留原样模式：输出ASCII代码块
         return f'''<div style="background: #f8f9fa; border: 2px solid #e8e8e8; border-radius: 8px; padding: 20px; margin: 25px 0;">
@@ -46,80 +53,104 @@ def convert_architecture_svg(content):
 </div>'''
 
 
-def convert_flowchart_svg(content):
-    """转换流程图为SVG"""
+def convert_flowchart_svg(content, placeholder_id, session_id):
+    """转换流程图为SVG
+
+    Args:
+        content: ASCII图内容
+        placeholder_id: 占位符ID (1, 2, 3...)
+        session_id: 会话唯一标识 (6位随机号)
+    """
     ai_enabled = os.environ.get('AI_SVG_CONVERSION', 'false').lower() == 'true'
 
     if ai_enabled:
         escaped_content = html.escape(content)
-        return f'''<!-- AI-SVG-FLOWCHART-START -->
-<div class="ai-svg-placeholder" data-type="flowchart" data-raw="{escaped_content}">
+        return f'''<!-- AI-SVG-FLOWCHART-START:id={placeholder_id},session={session_id} -->
+<div class="ai-svg-placeholder" data-id="{placeholder_id}" data-session="{session_id}" data-type="flowchart" data-raw="{escaped_content}">
   <div style="background: #fff7e6; border: 2px dashed #fa8c16; border-radius: 8px; padding: 20px; margin: 25px 0; text-align: center;">
     <p style="color: #fa8c16; font-size: 14px; margin: 0;">🤖 AI Agent正在生成流程图SVG...</p>
     <p style="color: #999; font-size: 12px; margin: 5px 0 0 0;">原始内容已嵌入，等待智能处理</p>
   </div>
 </div>
-<!-- AI-SVG-FLOWCHART-END -->'''
+<!-- AI-SVG-FLOWCHART-END:id={placeholder_id},session={session_id} -->'''
     else:
         return f'''<div style="background: #f8f9fa; border: 2px solid #e8e8e8; border-radius: 8px; padding: 20px; margin: 25px 0;">
 <pre><code style="font-family: 'Courier New', monospace; white-space: pre; line-height: 1.5;">{content}</code></pre>
 </div>'''
 
 
-def convert_ui_svg(content):
-    """转换UI图为SVG"""
+def convert_ui_svg(content, placeholder_id, session_id):
+    """转换UI图为HTML
+
+    Args:
+        content: ASCII图内容
+        placeholder_id: 占位符ID (1, 2, 3...)
+        session_id: 会话唯一标识 (6位随机号)
+    """
     ai_enabled = os.environ.get('AI_SVG_CONVERSION', 'false').lower() == 'true'
 
     if ai_enabled:
         escaped_content = html.escape(content)
-        return f'''<!-- AI-SVG-UI-START -->
-<div class="ai-svg-placeholder" data-type="ui" data-raw="{escaped_content}">
+        return f'''<!-- AI-SVG-UI-START:id={placeholder_id},session={session_id} -->
+<div class="ai-svg-placeholder" data-id="{placeholder_id}" data-session="{session_id}" data-type="ui" data-raw="{escaped_content}">
   <div style="background: #fff7e6; border: 2px dashed #fa8c16; border-radius: 8px; padding: 20px; margin: 25px 0; text-align: center;">
-    <p style="color: #fa8c16; font-size: 14px; margin: 0;">🤖 AI Agent正在生成UI图SVG...</p>
+    <p style="color: #fa8c16; font-size: 14px; margin: 0;">🤖 AI Agent正在生成UI图HTML...</p>
     <p style="color: #999; font-size: 12px; margin: 5px 0 0 0;">原始内容已嵌入，等待智能处理</p>
   </div>
 </div>
-<!-- AI-SVG-UI-END -->'''
+<!-- AI-SVG-UI-END:id={placeholder_id},session={session_id} -->'''
     else:
         return f'''<div style="background: #f8f9fa; border: 2px solid #e8e8e8; border-radius: 8px; padding: 20px; margin: 25px 0;">
 <pre><code style="font-family: 'Courier New', monospace; white-space: pre; line-height: 1.5;">{content}</code></pre>
 </div>'''
 
 
-def convert_timeline_svg(content):
-    """转换时间线图为SVG"""
+def convert_timeline_svg(content, placeholder_id, session_id):
+    """转换时间线图为SVG
+
+    Args:
+        content: ASCII图内容
+        placeholder_id: 占位符ID (1, 2, 3...)
+        session_id: 会话唯一标识 (6位随机号)
+    """
     ai_enabled = os.environ.get('AI_SVG_CONVERSION', 'false').lower() == 'true'
 
     if ai_enabled:
         escaped_content = html.escape(content)
-        return f'''<!-- AI-SVG-TIMELINE-START -->
-<div class="ai-svg-placeholder" data-type="timeline" data-raw="{escaped_content}">
+        return f'''<!-- AI-SVG-TIMELINE-START:id={placeholder_id},session={session_id} -->
+<div class="ai-svg-placeholder" data-id="{placeholder_id}" data-session="{session_id}" data-type="timeline" data-raw="{escaped_content}">
   <div style="background: #fff7e6; border: 2px dashed #fa8c16; border-radius: 8px; padding: 20px; margin: 25px 0; text-align: center;">
     <p style="color: #fa8c16; font-size: 14px; margin: 0;">🤖 AI Agent正在生成时间线图SVG...</p>
     <p style="color: #999; font-size: 12px; margin: 5px 0 0 0;">原始内容已嵌入，等待智能处理</p>
   </div>
 </div>
-<!-- AI-SVG-TIMELINE-END -->'''
+<!-- AI-SVG-TIMELINE-END:id={placeholder_id},session={session_id} -->'''
     else:
         return f'''<div style="background: #f8f9fa; border: 2px solid #e8e8e8; border-radius: 8px; padding: 20px; margin: 25px 0;">
 <pre><code style="font-family: 'Courier New', monospace; white-space: pre; line-height: 1.5;">{content}</code></pre>
 </div>'''
 
 
-def convert_diagram_svg(content):
-    """转换通用图为SVG"""
+def convert_diagram_svg(content, placeholder_id, session_id):
+    """转换通用图为SVG
+
+    Args:
+        content: ASCII图内容
+        placeholder_id: 占位符ID (1, 2, 3...)
+        session_id: 会话唯一标识 (6位随机号)
+    """
     ai_enabled = os.environ.get('AI_SVG_CONVERSION', 'false').lower() == 'true'
 
     if ai_enabled:
         escaped_content = html.escape(content)
-        return f'''<!-- AI-SVG-DIAGRAM-START -->
-<div class="ai-svg-placeholder" data-type="diagram" data-raw="{escaped_content}">
+        return f'''<!-- AI-SVG-DIAGRAM-START:id={placeholder_id},session={session_id} -->
+<div class="ai-svg-placeholder" data-id="{placeholder_id}" data-session="{session_id}" data-type="diagram" data-raw="{escaped_content}">
   <div style="background: #fff7e6; border: 2px dashed #fa8c16; border-radius: 8px; padding: 20px; margin: 25px 0; text-align: center;">
     <p style="color: #fa8c16; font-size: 14px; margin: 0;">🤖 AI Agent正在生成通用图SVG...</p>
     <p style="color: #999; font-size: 12px; margin: 5px 0 0 0;">原始内容已嵌入，等待智能处理</p>
   </div>
 </div>
-<!-- AI-SVG-DIAGRAM-END -->'''
+<!-- AI-SVG-DIAGRAM-END:id={placeholder_id},session={session_id} -->'''
     else:
         return f'''<div style="background: #f8f9fa; border: 2px solid #e8e8e8; border-radius: 8px; padding: 20px; margin: 25px 0;">
 <pre><code style="font-family: 'Courier New', monospace; white-space: pre; line-height: 1.5;">{content}</code></pre>
@@ -240,6 +271,18 @@ def convert_markdown_to_html(md_file, html_file, theme_name='purple'):
         print(f"❌ {e}")
         sys.exit(1)
 
+    # 生成会话ID和缓存目录
+    md_path = Path(md_file)
+    doc_name = md_path.stem  # 文档名称（不含扩展名）
+    session_id = ''.join(random.choices('abcdef0123456789', k=6))  # 6位随机号
+
+    # 创建缓存目录：.cvt-caches/{文档名}/{session_id}/
+    caches_dir = md_path.parent / '.cvt-caches' / doc_name / session_id
+    caches_dir.mkdir(parents=True, exist_ok=True)
+
+    print(f"🆔 会话ID：{session_id}")
+    print(f"📁 缓存目录：{caches_dir}")
+
     # 读取Markdown文件
     with open(md_file, 'r', encoding='utf-8') as f:
         content = f.read()
@@ -283,6 +326,20 @@ def convert_markdown_to_html(md_file, html_file, theme_name='purple'):
     lines = content.split('\n')
     content_start = 0
 
+    # 智能判断是否有 frontmatter
+    has_frontmatter = False
+    first_separator_index = -1
+
+    # 第一遍扫描：检查是否有 frontmatter 格式的元数据
+    for i, line in enumerate(lines):
+        if line.strip() == '---':
+            first_separator_index = i
+            break
+        # 检查是否有 frontmatter 中的元数据
+        if any(key in line for key in ['**编制单位：**', '**编制日期：**', '**版本号：**']):
+            has_frontmatter = True
+
+    # 第二遍扫描：提取标题、元数据，并确定正文起始位置
     separator_count = 0
     for i, line in enumerate(lines):
         if line.startswith('# '):
@@ -295,8 +352,14 @@ def convert_markdown_to_html(md_file, html_file, theme_name='purple'):
             metadata['版本号'] = line.split('：', 1)[1].strip().rstrip('*').strip()
         elif line.strip() == '---':
             separator_count += 1
-            # 跳过第一个分隔符，从第二个分隔符后开始提取内容
-            if separator_count == 2:
+            # 智能判断：
+            # - 如果有 frontmatter 格式，从第1个分隔符后开始
+            # - 如果没有 frontmatter，从文档开头开始（content_start 保持为 0）
+            if has_frontmatter and separator_count == 1:
+                content_start = i + 1
+                break
+            # 如果没有 frontmatter 但遇到了分隔符，从分隔符后开始
+            elif not has_frontmatter and separator_count == 1:
                 content_start = i + 1
                 break
 
@@ -1062,18 +1125,21 @@ def convert_markdown_to_html(md_file, html_file, theme_name='purple'):
             html_content = f.read()
 
         # 对每个占位符进行转换
+        placeholder_index = 1
         for placeholder, (diagram_type, diagram_content) in ascii_diagrams.items():
             # 根据类型选择转换策略
             if diagram_type == 'architecture':
-                svg_content = convert_architecture_svg(diagram_content)
+                svg_content = convert_architecture_svg(diagram_content, placeholder_index, session_id)
             elif diagram_type == 'flowchart':
-                svg_content = convert_flowchart_svg(diagram_content)
+                svg_content = convert_flowchart_svg(diagram_content, placeholder_index, session_id)
             elif diagram_type == 'ui':
-                svg_content = convert_ui_svg(diagram_content)
+                svg_content = convert_ui_svg(diagram_content, placeholder_index, session_id)
             elif diagram_type == 'timeline':
-                svg_content = convert_timeline_svg(diagram_content)
+                svg_content = convert_timeline_svg(diagram_content, placeholder_index, session_id)
             else:
-                svg_content = convert_diagram_svg(diagram_content)
+                svg_content = convert_diagram_svg(diagram_content, placeholder_index, session_id)
+
+            placeholder_index += 1
 
             # 替换占位符为SVG
             html_content = html_content.replace(placeholder, svg_content)
