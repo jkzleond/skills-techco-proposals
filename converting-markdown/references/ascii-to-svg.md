@@ -4,7 +4,7 @@
 
 **⚠️ 重要：先阅读 output-specs.md**
 
-在开始转换前，请确保已阅读 `guides/output-specs.md`，了解：
+在开始转换前，请确保已阅读 `references/output-specs.md`，了解：
 - 各类型图形的输出格式（SVG vs HTML）
 - 主题色系的使用
 - 基本的代码结构要求

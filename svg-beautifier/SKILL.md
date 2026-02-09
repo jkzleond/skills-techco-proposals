@@ -36,8 +36,8 @@ AI 在生成代码时应始终包含以下定义（颜色值请读取 `CONFIG.ya
 ## 📖 技术指南 (Guides - 按需读取)
 
 为了减少上下文负担，具体图形类型的实现细节请参阅：
-- 📊 **图表风格规范**: `guides/chart-styles.md` (柱状图、折线图、饼图)
-- 🕸️ **流程与架构模式**: `guides/flowchart-patterns.md` (逻辑流、系统层级)
+- 📊 **图表风格规范**: `references/chart-styles.md` (柱状图、折线图、饼图)
+- 🕸️ **流程与架构模式**: `references/flowchart-patterns.md` (逻辑流、系统层级)
 
 ## 🛠️ AI 交互流程
 
@@ -53,7 +53,7 @@ AI 扫描文档，寻找 `<svg>` 标签或带有 ` ```ascii ` 标记的代码块
 - **如果是 SVG**: 提取核心元素，重新套用现代样式模板。
 
 ### 步骤 4：验证并应用
-检查生成的 SVG 是否包含 `xmlns`, `viewBox`，以及是否满足 `guides/` 中的质量清单。
+检查生成的 SVG 是否包含 `xmlns`, `viewBox`，以及是否满足 `references/` 中的质量清单。
 
 ## 📋 检查清单 (Checklist)
 

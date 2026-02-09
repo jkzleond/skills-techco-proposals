@@ -1017,5 +1017,5 @@ function toggleModal() {
 > 前缀格式：`[示意图类型]-[占位符ID]-`，例如：`ui-1-container`、`ui-2-btn`。
 
 
-**完整的技术细节和故障排查**：见 `guides/technical-details.md`
+**完整的技术细节和故障排查**：见 `references/technical-details.md`
 

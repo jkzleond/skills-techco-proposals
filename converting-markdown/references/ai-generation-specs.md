@@ -850,8 +850,8 @@ transition: border-color 0.2s ease;
 ## 示例参考
 
 完整的代码示例请参考：
-- `/guides/output-specs.md` - 输出格式规范
-- `/guides/ascii-to-svg.md` - ASCII 识别和转换技巧
+- `/references/output-specs.md` - 输出格式规范
+- `/references/ascii-to-svg.md` - ASCII 识别和转换技巧
 
 **成功案例：**
 - `培训课程活动落地页建设方案.html` - 8 个精美图表（7 SVG + 1 HTML）

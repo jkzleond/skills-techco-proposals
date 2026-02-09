@@ -234,7 +234,7 @@ python3 scripts/extract_placeholders.py [file.html]
 本技能包含以下详细参考资料，AI Agent 仅在需要时加载：
 
 ### 📄 输出格式和代码要求
-**文件**：`guides/output-specs.md`
+**文件**：`references/output-specs.md`
 
 **包含内容**：
 - SVG 输出要求（architecture/flowchart/timeline/diagram）
@@ -249,7 +249,7 @@ python3 scripts/extract_placeholders.py [file.html]
 ---
 
 ### 🎨 ASCII 识别和转换技巧
-**文件**：`guides/ascii-to-svg.md`
+**文件**：`references/ascii-to-svg.md`
 
 **包含内容**：
 - 如何识别不同类型的 ASCII 图
@@ -263,7 +263,7 @@ python3 scripts/extract_placeholders.py [file.html]
 ---
 
 ### 🔧 技术细节和常见问题
-**文件**：`guides/technical-details.md`
+**文件**：`references/technical-details.md`
 
 **包含内容**：
 - 转换流程的技术细节
@@ -277,7 +277,7 @@ python3 scripts/extract_placeholders.py [file.html]
 ---
 
 ### 🤖 AI 生成规范
-**文件**：`guides/ai-generation-specs.md`
+**文件**：`references/ai-generation-specs.md`
 
 **包含内容**：
 - AI 生成代码的详细规范
@@ -372,7 +372,7 @@ python3 scripts/replace_svg.py document.json
 
 **Context 优化**：
 - 本 SKILL.md 已按 Progressive Disclosure 原则精简到约 300 行
-- 详细规范已移至 `guides/` 目录，按需加载
+- 详细规范已移至 `references/` 目录，按需加载
 - 减少常驻 context，提升响应速度
 
 **兼容性**：

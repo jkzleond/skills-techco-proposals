@@ -357,7 +357,7 @@ converting-markdown/
 │   ├── blue.yaml               # 蓝色主题
 │   ├── green.yaml              # 绿色主题
 │   └── minimal.yaml            # 极简主题
-└── guides/                     # 技术指南
+└── references/                 # 技术指南
     ├── output-specs.md         # 输出规范
     ├── ascii-to-svg.md         # ASCII 识别技巧
     └── technical-details.md     # 本文档
