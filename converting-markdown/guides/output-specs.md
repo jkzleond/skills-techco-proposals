@@ -210,7 +210,20 @@ secondary = "#666666"
 - ❌ `<head>`, `</head>`
 - ❌ `<body>`, `</body>`
 - ❌ `<title>`, `</title>`
-- ❌ `<meta>`, `<link>`, `<script src="...">`
+- ❌ `<meta>`, `<link>`
+- ❌ `<script>`, `<script src="...">`（禁止所有 script 标签）
+
+**样式规范：**
+- ✅ **允许内联 style 属性**：`<div style="...">`
+- ✅ **允许 `<style>` 标签**：用于定义 class 样式、hover/focus 效果
+- ❌ **禁止 `<script>` 标签**：包括内联脚本和外部脚本引用
+- ❌ **禁止事件处理属性**：`onclick`、`onhover`、`onload` 等
+
+**为什么禁止 script？**
+1. 📄 文档用于**展示和演示**，不是功能应用
+2. 👥 领导/客户查看时，希望**直接看到所有内容**
+3. 🖨️ 支持**打印和导出 PDF**
+4. 🔒 避免 JavaScript 导致的兼容性问题
 
 **验证方法：**
 生成的 HTML 代码应该能够直接插入到 `<body>` 标签内部，而不需要任何修改。

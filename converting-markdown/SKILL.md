@@ -288,12 +288,15 @@ python3 scripts/extract_placeholders.py [file.html]
 - ✅ HTML 使用语义化标签（`<div>`, `<button>` 等）
 - ✅ 使用主题色系（见"配色速查表"）
 - ✅ 包含必要属性（viewBox、xmlns 等）
+- ✅ **HTML class 必须有前缀**（格式：`[类型]-[ID]-`，如 `ui-1-container`）⚠️
 - ✅ **UI 类型必须是静态展示（⚠️ 重要）：**
   - ❌ 不使用 JavaScript（onclick、onhover 等）
   - ❌ 不使用 display:none 等隐藏内容
   - ❌ 不需要用户交互就能看到所有内容
+  - ❌ 不使用 `<script>` 标签（内联或外部脚本）
   - ❌ **不包含完整 HTML 文档标签**（`<html>`, `<head>`, `<body>`, `<!DOCTYPE>`）
   - ✅ **必须是 HTML 片段**（可插入到 `<body>` 内部的代码）
+  - ✅ 允许使用 `<style>` 标签和内联 `style` 属性
   - ✅ 所有内容直接显示在文档中
 - ✅ 没有明显的语法错误
 
