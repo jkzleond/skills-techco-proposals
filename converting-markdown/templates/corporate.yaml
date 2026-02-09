@@ -1,0 +1,61 @@
+name: "企业蓝主题"
+description: "企业商务风格，深蓝系，适合正式方案和商务文档"
+
+colors:
+  primary: "#003366"
+  secondary: "#007bff"
+  background: "#ffffff"
+  text: "#1a1a2e"
+  gradient_start: "#003366"
+  gradient_end: "#007bff"
+  link: "#00509e"
+  code_bg: "#0d1117"
+  code_text: "#c9d1d9"
+  border_color: "#e1e4e8"
+  header_text: "#ffffff"
+  blockquote_bg: "rgba(0, 51, 102, 0.05)"
+  blockquote_border: "rgba(0, 51, 102, 0.2)"
+  table_hover: "rgba(0, 123, 255, 0.05)"
+  code_inline_bg: "#e8eef5"
+  code_inline_color: "#00509e"
+  accent_cyan: "#00bcd4"
+
+# 间距
+spacing:
+  h2_margin: "40px 0 20px 0"
+  h3_margin: "30px 0 18px 0"
+  h4_margin: "22px 0 12px 0"
+  p_margin: "12px 0"
+
+# 渐变定义
+gradients:
+  background: "linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%)"
+  header: "linear-gradient(135deg, {{primary}} 0%, {{secondary}} 100%)"
+  table_header: "linear-gradient(135deg, {{primary}} 0%, {{secondary}} 100%)"
+  blockquote: "linear-gradient(135deg, rgba(0, 51, 102, 0.05) 0%, rgba(0, 123, 255, 0.05) 100%)"
+  table_hover: "rgba(0, 123, 255, 0.05)"
+  top_bar: "linear-gradient(90deg, {{primary}} 0%, {{accent_cyan}} 100%)"
+
+# 特殊样式
+special_styles:
+  blockquote:
+    border_left: "4px solid {{primary}}"
+    border_radius: "0 6px 6px 0"
+    padding: "12px 18px"
+    font_style: "italic"
+
+  table:
+    box_shadow: "0 2px 8px rgba(0, 0, 0, 0.06)"
+    border_radius: "8px"
+    hover_transition: "background 0.25s ease"
+
+  code_inline:
+    background: "#e8eef5"
+    padding: "2px 6px"
+    border_radius: "3px"
+    color: "#00509e"
+
+  pre:
+    padding: "20px"
+    border_radius: "8px"
+    box_shadow: "0 2px 8px rgba(0, 0, 0, 0.08)"

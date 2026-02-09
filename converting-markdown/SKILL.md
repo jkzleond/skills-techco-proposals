@@ -20,7 +20,7 @@ python3 scripts/convert.py --list-themes
 
 ## Features
 
-- ✅ **多主题支持**：purple（紫色）、blue（蓝色）、green（绿色）、minimal（极简灰度）
+- ✅ **多主题支持**：purple（紫色）、blue（蓝色）、green（绿色）、corporate（企业蓝）、minimal（极简灰度）
 - ✅ 响应式设计（PC/平板/手机）
 - ✅ 打印优化（自动移除渐变和阴影）
 - ✅ **智能段落合并**：使用专业库，无多余`<br>`标签
@@ -64,6 +64,7 @@ python3 scripts/convert.py --list-themes
 | **purple** | 紫色渐变主题 | #667eea → #764ba2 | 售前方案、商务文档 |
 | **blue** | 蓝色科技主题 | #1890ff → #096dd9 | 技术文档、API 文档 |
 | **green** | 绿色清新主题 | #52c41a → #389e0d | 内部报告、运营数据 |
+| **corporate** | 企业蓝主题 | #003366 → #007bff | 正式方案、标书文档 |
 | **minimal** | 极简灰度主题 | 灰度系 | 学术论文、正式报告 |
 
 ---
@@ -84,6 +85,7 @@ python3 scripts/convert.py [markdown_file] [options]
 python3 scripts/convert.py "文档.md"                    # 默认紫色主题
 python3 scripts/convert.py "文档.md" --theme blue       # 蓝色主题
 python3 scripts/convert.py "文档.md" --theme green      # 绿色主题
+python3 scripts/convert.py "文档.md" --theme corporate  # 企业蓝主题
 python3 scripts/convert.py "文档.md" --theme minimal    # 极简主题
 python3 scripts/convert.py --list-themes               # 列出所有主题
 ```
@@ -121,7 +123,7 @@ graph TD
 | 步骤 | 操作 | 说明 |
 |------|------|------|
 | **步骤1** | 选择 Markdown 文件 | 使用 `AskUserQuestion` 工具 |
-| **步骤2** | 选择主题 | purple/blue/green/minimal |
+| **步骤2** | 选择主题 | purple/blue/green/corporate/minimal |
 | **步骤3** | 处理 ASCII 图 | 保留原样 OR 智能转换（3步流程） |
 | **步骤4** | 验证输出 | 检查清单见"验证规则"章节 |
 
@@ -332,6 +334,7 @@ grep -c "AI-SVG-PLACEHOLDER" output.html
 | **purple** | #667eea | #764ba2 | #f8f9fa | #333333 |
 | **blue** | #1890ff | #096dd9 | #f0f5ff | #333333 |
 | **green** | #52c41a | #389e0d | #f6ffed | #333333 |
+| **corporate** | #003366 | #007bff | #ffffff | #1a1a2e |
 | **minimal** | #333333 | #666666 | #ffffff | #333333 |
 
 ---
