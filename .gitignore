@@ -26,3 +26,6 @@ Thumbs.db
 *.tmp
 *.bak
 *.swp
+
+# Claude Code local settings
+.claude/
