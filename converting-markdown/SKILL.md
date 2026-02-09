@@ -5,8 +5,6 @@ description: 将 Markdown 文档转换为精美的 HTML，支持智能 ASCII 图
 
 # Converting Markdown to HTML
 
-将 Markdown 文档转换为美观的 HTML，支持多主题切换，适合领导查阅和展示。
-
 ## Quick Start
 
 ```bash

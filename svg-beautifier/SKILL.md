@@ -5,8 +5,6 @@ description: 自动将 HTML/Markdown 中的基础 SVG 或 ASCII 图转换为具�
 
 # SVG 美化技能 (SVG Beautifier)
 
-本技能旨在将功能性但简陋的 SVG/ASCII 图表转化为符合现代企业 SaaS 审美的高权重视觉资源。
-
 ## 🎯 核心原则 (Core Principles)
 
 - **层次感 (Hierarchy)**: 必须定义 `<defs>` 并在其中配置标准阴影 (`feDropShadow`) 和渐变。
