@@ -365,23 +365,3 @@ python3 scripts/extract_placeholders.py document.html
 # 步骤3：AI 生成 SVG/HTML 并替换
 python3 scripts/replace_svg.py document.json
 ```
-
----
-
-## Notes
-
-**Context 优化**：
-- 本 SKILL.md 已按 Progressive Disclosure 原则精简到约 300 行
-- 详细规范已移至 `references/` 目录，按需加载
-- 减少常驻 context，提升响应速度
-
-**兼容性**：
-- 适用于 Claude、ChatGPT、Gemini 等平台
-- 使用标准 Markdown 格式
-- 避免使用特定平台的专有功能
-
-**最佳实践**：
-- 使用完整路径调用脚本
-- 确认主题后再开始转换
-- 智能转换时使用多 Task 并行提升速度
-- 生成代码后必须验证质量
