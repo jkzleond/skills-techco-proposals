@@ -518,13 +518,18 @@ def convert_markdown_to_html(md_file, html_file, theme_name='purple'):
             overflow: hidden;
         }}
 
-        th {{
+        thead {{
             background: {theme.gradient_table};
             color: #fff;
+        }}
+
+        th {{
             padding: 16px 18px;
             text-align: left;
             font-weight: 600;
             font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }}
 
         td {{

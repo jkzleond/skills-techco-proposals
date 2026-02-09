@@ -30,7 +30,7 @@ spacing:
 gradients:
   background: "linear-gradient(135deg, {{primary}} 0%, {{secondary}} 100%)"
   header: "linear-gradient(135deg, {{primary}} 0%, {{secondary}} 100%)"
-  table_header: "linear-gradient(135deg, {{primary}} 0%, {{secondary}} 100%)"
+  table_header: "linear-gradient(90deg, {{primary}} 0%, {{secondary}} 100%)"
   blockquote: "linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)"
   table_hover: "rgba(102, 126, 234, 0.05)"
 

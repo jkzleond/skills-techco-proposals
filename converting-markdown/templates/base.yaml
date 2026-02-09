@@ -34,7 +34,7 @@ spacing:
 gradients:
   background: "linear-gradient(135deg, {{primary}} 0%, {{secondary}} 100%)"
   header: "linear-gradient(135deg, {{primary}} 0%, {{secondary}} 100%)"
-  table_header: "linear-gradient(135deg, {{primary}} 0%, {{secondary}} 100%)"
+  table_header: "linear-gradient(90deg, {{primary}} 0%, {{secondary}} 100%)"
   blockquote: "linear-gradient(135deg, {{primary}} 0%, {{secondary}} 100%)"
   table_hover: "{{table_hover}}"
 
