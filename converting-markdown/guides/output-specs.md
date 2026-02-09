@@ -115,6 +115,8 @@ secondary = "#666666"
 
 ### 2. HTML 输出要求（ui 类型）
 
+> **适用范围：** 本章节所有要求仅针对 **AI Agent 将 `ui` 类型 ASCII 图转换为 HTML 代码**时适用。
+
 #### 2.0 核心原则：静态展示，非交互组件 ⚠️
 
 **重要约束：**
@@ -160,6 +162,13 @@ secondary = "#666666"
 - 🔒 避免复杂的 JavaScript 导致兼容性问题
 
 #### 2.0.1 ⚠️ 必须生成 HTML 片段，不是完整文档
+
+**适用范围：** 本章节的所有约束仅针对 **AI Agent 将 ASCII 图转换为 HTML 代码**时适用。
+
+> **重要说明：**
+> - converting-markdown 的最终输出是完整的 HTML 文档（包含 `<html>`, `<head>`, `<body>` 等）
+> - 这些约束只适用于 AI 生成的、用来替换 ASCII 图的 **HTML 片段**
+> - AI 生成的代码会被插入到完整 HTML 文档的 `<body>` 内部
 
 **关键规范：** AI 生成的 HTML 代码必须是**HTML 片段（HTML fragment）**，不能是完整的 HTML 文档。
 

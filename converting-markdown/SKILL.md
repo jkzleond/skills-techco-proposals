@@ -281,6 +281,8 @@ python3 scripts/extract_placeholders.py [file.html]
 
 ### 步骤4：验证转换结果 ⚠️ AI Agent 必须验证
 
+**适用范围：** 以下验证清单仅针对 **AI Agent 生成的 SVG/HTML 代码**，不适用于完整 HTML 文档。
+
 **快速验证清单：**
 
 生成代码时检查：
