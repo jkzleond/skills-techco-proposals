@@ -1,0 +1,16 @@
+# 全局视觉配置
+
+brand:
+  primary: "#1890ff"       # 企业蓝
+  primary_light: "#e6f7ff" # 背景浅蓝
+  success: "#52c41a"       # 成功/正向
+  warning: "#faad14"       # 警告/现状
+  danger: "#ff4d4f"        # 风险/错误
+  neutral: "#8c8c8c"       # 中性色
+
+styles:
+  border_radius: "12px"
+  shadow: "0 4px 6px rgba(0,0,0,0.1)"
+  font_family: "Inter, 'PingFang SC', sans-serif"
+
+last_modified: "2026-02-08"

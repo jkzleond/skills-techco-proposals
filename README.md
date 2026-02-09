@@ -61,6 +61,19 @@
 项目数据 → AI Agent（计算 + 决策） → 生成规划书 + 报价方案
 ```
 
+### 案例 4：svg-beautifier（视觉提升 SKILL）
+
+**研究点**：如何让 AI Agent 像设计师一样处理视觉资源
+
+- **SKILL.md**：定义现代 UI 风格规范和美化流程
+- **guides/**：分图形类型的详细视觉准则（图表 vs 流程图）
+- **设计决策**：通过 `CONFIG.yaml` 动态注入品牌色
+
+**关键设计模式**：
+```
+基础/ASCII 图表 → AI Agent（视觉理解 + 风格注入） → 高保真 SVG 图表
+```
+
 ---
 
 ## 🏗️ SKILL 设计模式
@@ -300,9 +313,16 @@ skills-techco-proposals/
 │   ├── SKILL.md                       # 完整编制规范
 │   └── CONFIG.yaml                    # 用户配置
 │
-└── internal-project-plan/             # 案例3：复杂计算SKILL
-    ├── SKILL.md                       # 规划规范+计算逻辑
-    └── CONFIG.yaml                    # 用户配置
+├── internal-project-plan/             # 案例3：复杂计算SKILL
+│   ├── SKILL.md                       # 规划规范+计算逻辑
+│   └── CONFIG.yaml                    # 用户配置
+│
+└── svg-beautifier/                    # 案例4：视觉提升SKILL
+    ├── SKILL.md                       # 美化规范与流程
+    ├── CONFIG.yaml                    # 视觉配置（品牌色等）
+    └── guides/                        # 详细视觉指南
+        ├── chart-styles.md            # 数据图表风格
+        └── flowchart-patterns.md      # 流程架构风格
 ```
 
 ---

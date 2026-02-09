@@ -13,6 +13,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 1. **converting-markdown** - 展示脚本与 AI 协作模式、多步骤交互流程设计
 2. **presales-proposal** - 展示纯文档 SKILL、占位符系统、专业知识转化
 3. **internal-project-plan** - 展示复杂计算 SKILL、决策支持、业务逻辑编排
+4. **svg-beautifier** - 展示视觉提升 SKILL、按需加载指南、品牌风格注入
 
 ---
 
@@ -51,9 +52,16 @@ skills-techco-proposals/
 │   ├── SKILL.md                   # 技能定义和编制规范
 │   └── CONFIG.yaml                # 公司配置（公司名称、角色等）
 │
-└── internal-project-plan/         # 内部项目规划技能
-    ├── SKILL.md                   # 技能定义和规划规范
-    └── CONFIG.yaml                # 公司配置
+├── internal-project-plan/         # 内部项目规划技能
+│   ├── SKILL.md                   # 技能定义和规划规范
+│   └── CONFIG.yaml                # 公司配置
+│
+└── svg-beautifier/                # SVG 美化技能
+    ├── SKILL.md                   # 技能定义与核心原则
+    ├── CONFIG.yaml                # 全局视觉配置
+    └── guides/                    # 风格指南（按需读取）
+        ├── chart-styles.md        # 图表美化指南
+        └── flowchart-patterns.md  # 流程架构美化指南
 ```
 
 ---
