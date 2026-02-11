@@ -1,6 +1,6 @@
 ---
 name: fast-prototype
-description: Transform product requirements into interactive prototypes and documentation. Use when user needs to: (1) Create structured PRD from requirements, (2) Generate interactive HTML prototype with Vue3+Tailwind+ElementPlus, (3) Produce standard PRD documentation, (4) Create interface design specifications, or (5) Generate frontend/backend technical documentation. Works from natural language requirement descriptions through a 5-stage workflow.
+description: Transform natural language requirements into interactive prototypes and professional documentation through a 5-stage workflow. Generate structured PRD (Mermaid flowchart + ASCII UI + element table), interactive HTML prototype (Vue3 + Tailwind + Element Plus), and complete documentation (PRD, design specs, technical docs). Use for: (1) Rapid prototyping from requirements, (2) Creating structured PRD documents, (3) Generating interactive HTML prototypes, (4) Producing design specifications, (5) Creating frontend/backend technical documentation.
 ---
 
 # Fast Prototype
