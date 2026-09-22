@@ -333,7 +333,7 @@ AI Agent（理解规范 → 生成文档）
 ## 📂 目录结构
 
 ```
-skills-techco-proposals/
+agent-skills-research/
 ├── CLAUDE.md                          # Claude Code 工作指南
 ├── README.md                          # 本文档
 ├── LICENSE                            # MIT 许可证

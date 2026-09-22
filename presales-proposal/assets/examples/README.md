@@ -18,10 +18,10 @@
 
 ## 查找方法
 
-从项目根目录 `skills-techco-proposals/` 进入 `售前/` 文件夹：
+从项目根目录 `agent-skills-research/` 进入 `售前/` 文件夹：
 
 ```bash
-cd skills-techco-proposals/售前/
+cd agent-skills-research/售前/
 ls -la
 ```
 

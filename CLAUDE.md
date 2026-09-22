@@ -31,7 +31,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### 目录结构
 
 ```
-skills-techco-proposals/
+agent-skills-research/
 ├── converting-markdown/           # Markdown 转 HTML 技能
 │   ├── SKILL.md                   # 技能定义和交互流程
 │   ├── guides/                    # 技术指南（AI 按需读取）
