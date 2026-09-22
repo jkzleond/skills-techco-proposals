@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 这是一个 **AI Agent SKILL 制作研究项目**，探索和总结 SKILL 的编写方法、设计模式和最佳实践。
 
-项目包含 3 个完整的研究案例，展示如何将复杂的业务流程和专业知识转化为可被 AI Agent 理解和执行的 SKILL 文档。这些案例既是可用的技能，也是学习 SKILL 制作的参考实现。
+项目包含 6 个研究案例，展示如何将复杂的业务流程和专业知识转化为可被 AI Agent 理解和执行的 SKILL 文档。这些案例既是可用的技能，也是学习 SKILL 制作的参考实现。
 
 ### 研究案例
 
@@ -14,6 +14,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 2. **presales-proposal** - 展示纯文档 SKILL、占位符系统、专业知识转化
 3. **internal-project-plan** - 展示复杂计算 SKILL、决策支持、业务逻辑编排
 4. **svg-beautifier** - 展示视觉提升 SKILL、按需加载指南、品牌风格注入
+5. **fast-prototype** - 展示需求到原型的渐进式披露设计
+6. **sdd-lite** - 展示轻量规格治理、可恢复基线与任务级热上下文
 
 ---
 
@@ -56,12 +58,19 @@ skills-techco-proposals/
 │   ├── SKILL.md                   # 技能定义和规划规范
 │   └── CONFIG.yaml                # 公司配置
 │
-└── svg-beautifier/                # SVG 美化技能
-    ├── SKILL.md                   # 技能定义与核心原则
-    ├── CONFIG.yaml                # 全局视觉配置
-    └── guides/                    # 风格指南（按需读取）
-        ├── chart-styles.md        # 图表美化指南
-        └── flowchart-patterns.md  # 流程架构美化指南
+├── svg-beautifier/                # SVG 美化技能
+│   ├── SKILL.md                   # 技能定义与核心原则
+│   ├── CONFIG.yaml                # 全局视觉配置
+│   └── guides/                    # 风格指南（按需读取）
+│       ├── chart-styles.md        # 图表美化指南
+│       └── flowchart-patterns.md  # 流程架构美化指南
+├── fast-prototype/                # 需求到原型技能
+│   ├── SKILL.md
+│   └── references/                # 按需加载的参考文档
+└── sdd-lite/                      # 轻量规格驱动开发技能
+    ├── SKILL.md
+    ├── agents/openai.yaml         # Codex 调用元数据
+    └── references/                # 审计、模板、维护等按需规则
 ```
 
 ---

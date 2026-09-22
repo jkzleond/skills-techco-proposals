@@ -4,7 +4,7 @@
 
 ## 🎯 项目目的
 
-本项目是一个**关于 SKILL 制作的研究项目**，旨在探索和总结 AI Agent SKILL 的编写方法、设计模式和最佳实践。通过五个完整的实际案例，展示如何将复杂的业务流程和专业知识转化为可被 AI Agent 理解和执行的 SKILL 文档。
+本项目是一个**关于 SKILL 制作的研究项目**，旨在探索和总结 AI Agent SKILL 的编写方法、设计模式和最佳实践。通过六个实际案例，展示如何将复杂的业务流程和专业知识转化为可被 AI Agent 理解和执行的 SKILL 文档。
 
 ### 可以学到什么
 
@@ -99,6 +99,17 @@
 - 结构化 PRD：Mermaid（流程）+ ASCII（布局）+ 表格（功能）
 - 可运行原型：Vue3 + Tailwind + Element Plus，完整交互逻辑
 - 专业文档：标准 PRD、界面设计、前后端技术文档
+
+### 案例 6：sdd-lite（轻量规格驱动开发）
+
+**研究点**：如何在可恢复的规格基线与低成本的任务实施之间保持平衡
+
+- **[SKILL.md](sdd-lite/SKILL.md)**：需求确认、基线封存、实施授权与比例化验证的核心流程
+- **[references/](sdd-lite/references/)**：按工作类型加载工件模板、审计、Hot Context Contract、文档整理和 UI 规则
+- **[agents/openai.yaml](sdd-lite/agents/openai.yaml)**：Codex 的展示信息和隐式调用配置
+- **边界**：普通修复不强制创建变更提案；历史工件可恢复，但普通任务不通读历史账本
+
+这是本机使用的 SDD Lite Skill 的仓库副本；两处文件不会自动同步。Skill 主要面向 Codex，仓库中的其他案例所述跨平台兼容性不自动适用于此案例。
 
 ---
 
@@ -350,15 +361,20 @@ skills-techco-proposals/
 │       ├── chart-styles.md            # 数据图表风格
 │       └── flowchart-patterns.md      # 流程架构风格
 │
-└── fast-prototype/                   # 案例5：需求到原型SKILL（符合skill-creator标准）
-    ├── SKILL.md                       # 核心工作流（134行）
-    ├── assets/                        # 资源目录
-    └── references/                    # 按需加载的参考文档
-        ├── component-styles.md        # 组件样式指南
-        ├── design-specs.md            # 界面设计规范
-        ├── prd-template.md            # PRD文档模板
-        ├── frontend-tech.md           # 前端技术文档模板
-        └── backend-tech.md            # 后端技术文档模板
+├── fast-prototype/                   # 案例5：需求到原型SKILL（符合skill-creator标准）
+│   ├── SKILL.md                       # 核心工作流（134行）
+│   ├── assets/                        # 资源目录
+│   └── references/                    # 按需加载的参考文档
+│       ├── component-styles.md        # 组件样式指南
+│       ├── design-specs.md            # 界面设计规范
+│       ├── prd-template.md            # PRD文档模板
+│       ├── frontend-tech.md           # 前端技术文档模板
+│       └── backend-tech.md            # 后端技术文档模板
+│
+└── sdd-lite/                         # 案例6：轻量规格驱动开发
+    ├── SKILL.md                       # 核心流程与授权边界
+    ├── agents/openai.yaml             # Codex 展示与调用配置
+    └── references/                    # 按需加载的细则与模板
 ```
 
 ---
@@ -415,7 +431,7 @@ skill fast-prototype "为一个客户管理系统设计原型"
 
 ### 高级：自定义 SKILL
 
-5. 参考 5 个案例的结构和模式
+5. 参考 6 个案例的结构和模式
 6. 根据自己的需求编写 SKILL
 7. 使用检查清单验证质量
 
@@ -425,6 +441,10 @@ skill fast-prototype "为一个客户管理系统设计原型"
    - 学习 5 阶段工作流设计
    - 理解如何从需求到原型到文档
    - 掌握符合 skill-creator 标准的渐进式披露设计
+
+7. 阅读 `sdd-lite/SKILL.md`
+   - 学习确认、封存与实施授权分离
+   - 理解任务级热上下文和可恢复历史如何共存
 
 ---
 

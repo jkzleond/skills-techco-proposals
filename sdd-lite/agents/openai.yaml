@@ -1,0 +1,7 @@
+interface:
+  display_name: "SDD Lite"
+  short_description: "轻量规格、任务级热上下文、快速修复与可恢复基线治理"
+  default_prompt: "使用 $sdd-lite；先构造任务级 Hot Context，只加载当前基线与任务直接引用。语义变更走规格治理，符合既有规格的修复走快速通道。"
+
+policy:
+  allow_implicit_invocation: true
